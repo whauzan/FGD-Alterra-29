@@ -1,3 +1,11 @@
+Link Figma = [FGD DKKU](https://www.figma.com/file/ceocdtMqxl4PMGcGspNWtE/Project?node-id=0%3A1)
+
+Contribute by:
+
+1. [Ilham Prasetya](https://github.com/ilse31)
+2. [Wahyu Hauzan Rafi](https://github.com/whauzan)
+3. [Muhammad Ghifari](https://github.com/Ghynmo)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

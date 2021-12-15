@@ -10,7 +10,8 @@
 
 # production
 /build
-
+/yarn.lock
+/README.old.md
 # misc
 .DS_Store
 .env.local
