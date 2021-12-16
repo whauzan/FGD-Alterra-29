@@ -15,7 +15,7 @@ const ProfileFriends = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-        <Container h='full'>
+        <Container centerContent>
             <CoverImage cover={ cover } />
             <VStack>
                 { Mobile ? (
@@ -34,10 +34,10 @@ const ProfileFriends = () =>
                         </HStack>
                         <VStack>
                             <Flex mt={ { md: 20, lg: 8 } } direction={ "column" }>
-                                <HStack spacing={ { md: "2em", lg: "10em", xl: "10em" } }>
+                                <HStack spacing={ { md: "2em", lg: "5em" } }>
                                     <Achievement post={ 3 } thread={ 5 } />
                                     <HStack>
-                                        <Box width={ { md: "20em", xl: "30em" } }>
+                                        <Box width={ { md: "20em", lg: "30em" } }>
                                             <Konten kiri={ "Post" } kanan={ "Thread" } />
                                         </Box>
                                     </HStack>
@@ -68,6 +68,11 @@ const ProfileFriends = () =>
                                     <ButtonProfiles messages={ "Follow" } />
                                     <ButtonProfiles messages={ "Messages" } />
                                 </HStack>
+                            </Center>
+                            <Achievement post={ 3 } thread={ 5 } />
+                            <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
+                            <Center mt={ 5 }>
+                                <Konten kiri={ "Post" } kanan={ "Thread" } />
                             </Center>
                         </Flex>
                     </VStack>

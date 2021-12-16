@@ -4,7 +4,7 @@ import React from 'react'
 const Konten = ( { kiri, kanan } ) =>
 {
     return (
-        <Tabs>
+        <Tabs mb={ 15 } >
             <TabList>
                 <Tab>{ kiri }</Tab>
                 <Tab>{ kanan }</Tab>
