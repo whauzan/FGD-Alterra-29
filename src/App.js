@@ -1,10 +1,9 @@
 import { Flex } from "@chakra-ui/react";
-import FollowingProfile from "./pages/FollowingProfile";
-
+import UsersProfile from "./pages/UsersProfile";
 function App() {
   return (
     <Flex>
-      <FollowingProfile />
+      <UsersProfile />
     </Flex>
   );
 }

@@ -4,7 +4,6 @@ import Achievement from '../components/Achievement'
 import Badges from '../components/Badges'
 import ButtonProfiles from '../components/ButtonProfiles'
 import CoverImage from '../components/CoverImage'
-import Konten from '../components/Konten'
 import NameUsers from '../components/NameUsers'
 import ProfilePict from '../components/ProfilePict'
 import cover from "../assets/img/629527.jpg";
@@ -39,7 +38,7 @@ const FollowingProfile = () =>
                                     <Achievement post={ 3 } thread={ 5 } />
                                     <HStack>
                                         <Box width={ { md: "20em", lg: "30em" } }>
-                                            <Following kiri={ "Post" } kanan={ "Thread" } />
+                                            <Following kiri={ "Followers" } kanan={ "Following" } />
                                         </Box>
                                     </HStack>
                                     <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
@@ -73,7 +72,7 @@ const FollowingProfile = () =>
                             <Achievement post={ 3 } thread={ 5 } />
                             <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
                             <Center mt={ 5 }>
-                                <Konten kiri={ "Post" } kanan={ "Thread" } />
+                                <Following kiri={ "Followers" } kanan={ "Following" } />
                             </Center>
                         </Flex>
                     </VStack>

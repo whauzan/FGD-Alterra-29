@@ -6,7 +6,7 @@ const Achievement = ( { post, thread } ) =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-        <VStack spacing={ 5 } fontFamily={ 'Poppins' } fontWeight={ 'medium' } fontSize={ 13 } color={ 'brand.300' }>
+        <VStack spacing={ 5 } fontWeight={ 'medium' } fontSize={ 13 } color={ 'brand.300' }>
             <Box mt={ 10 } >
                 { Mobile ? ( <Text fontSize={ 13 } fontWeight={ 'medium' }>My Achivement</Text> ) :
                     ( <Center>

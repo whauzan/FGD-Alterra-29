@@ -8,7 +8,6 @@ const ButtonProfiles = ( { messages } ) =>
             size='sm'
             width={ 40 }
             border='2px'
-            fontFamily={ 'Poppins' }
             fontWeight={ 'medium' }
             fontSize={ 12 }
             bg={ "white" }

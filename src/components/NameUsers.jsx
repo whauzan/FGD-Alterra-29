@@ -4,10 +4,10 @@ const NameUsers = ( { username, tagName, bio } ) =>
 {
     return (
         <Box width={ '24em' } >
-            <Text fontFamily={ 'Poppins' } fontSize={ 36 } fontWeight={ 'bold' } marginLeft={ { sm: 20, md: 40, lg: 0 } }>
+            <Text fontSize={ 36 } fontWeight={ 'bold' } marginLeft={ { sm: 20, md: 40, lg: 0 } }>
                 { username }
             </Text>
-            <Box fontFamily={ 'Poppins' } fontSize={ 12 } fontWeight={ 'normal' } marginLeft={ { sm: 20, md: 40, lg: 0 } }>
+            <Box fontSize={ 12 } fontWeight={ 'normal' } marginLeft={ { sm: 20, md: 40, lg: 0 } }>
                 <Text>{ tagName }</Text>
                 <Text>{ bio }</Text>
             </Box>
