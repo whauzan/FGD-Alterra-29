@@ -6,14 +6,18 @@ const AktifDi = () =>
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
         <Box>
-            { Mobile ? ( <Text>Aktif di</Text> ) :
-                ( <Center>
-                    <Text>Aktif di</Text>
-                </Center> )
+            { Mobile ? (
+                <Text>Aktif Di</Text>
+            ) :
+                (
+                    <Center>
+                        <Text>Aktif Di</Text>
+                    </Center>
+                )
             }
             <HStack spacing={ 5 }>
                 <Box mt={ 5 }>
-                    <Stack spacing={ Mobile ? { md: 3, lg: 10 } : 20 } direction={ Mobile ? 'column' : 'row' }>
+                    <Stack spacing={ Mobile ? { md: 3, lg: 10 } : 20 } direction={ Mobile ? 'column' : 'row' } fontSize={ 13 } fontWeight={ 'medium' }>
                         <Box >
                             <Text>Mitos</Text>
                         </Box>

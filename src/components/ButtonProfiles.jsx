@@ -8,9 +8,12 @@ const ButtonProfiles = ( { messages } ) =>
             size='sm'
             width={ 40 }
             border='2px'
+            fontFamily={ 'Poppins' }
+            fontWeight={ 'medium' }
+            fontSize={ 12 }
             bg={ "white" }
-            _hover={ { bg: "purple.500", color: "white" } }
-            borderColor='purple.500'
+            _hover={ { bg: "brand.100", color: "white" } }
+            borderColor='brand.100'
             borderRadius={ "full" }
             paddingLeft={ 10 }
             paddingRight={ 10 }>

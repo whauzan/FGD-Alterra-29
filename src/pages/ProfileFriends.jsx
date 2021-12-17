@@ -15,7 +15,7 @@ const ProfileFriends = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-        <Container centerContent>
+        <Container centerContent h={ '100vh' }>
             <CoverImage cover={ cover } />
             <VStack>
                 { Mobile ? (

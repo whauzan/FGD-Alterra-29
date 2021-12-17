@@ -6,16 +6,20 @@ const Koneksi = () =>
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
         <Box>
-            { Mobile ? ( <Text>Koneksi</Text> ) :
-                ( <Center>
-                    <Text>Koneksi</Text>
-                </Center> )
+            { Mobile ? (
+                <Text fontSize={ 13 } fontWeight={ 'medium' }>Koneksi</Text>
+            ) :
+                (
+                    <Center>
+                        <Text fontSize={ 13 } fontWeight={ 'medium' }>Koneksi</Text>
+                    </Center>
+                )
             }
             <VStack spacing={ 5 }>
                 <Box mt={ 5 }>
-                    <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 20 } : 20 }>
+                    <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 20 } : 40 } fontSize={ 25 }>
                         <Box >
-                            <Text>1</Text>
+                            <Text >1</Text>
                         </Box>
                         <Box>
                             <Text>2</Text>
@@ -23,7 +27,7 @@ const Koneksi = () =>
                     </HStack>
                 </Box>
                 <Box mt={ 5 }>
-                    <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 20 } : 20 }>
+                    <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 20 } : 20 } fontWeight={ 'medium' }>
                         <Box>
                             <Text>Pengikut</Text>
                         </Box>
