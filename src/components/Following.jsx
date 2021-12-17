@@ -1,10 +1,8 @@
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from '@chakra-ui/react'
 import React from 'react'
-import Post from './Post'
+import Follow from './Follow'
 
-import Thread from './Thread'
-
-const Konten = ( { kiri, kanan } ) =>
+const Following = ( { kiri, kanan } ) =>
 {
     return (
         <Tabs mb={ 40 } >
@@ -14,14 +12,14 @@ const Konten = ( { kiri, kanan } ) =>
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <Post />
+                    <Follow />
                 </TabPanel>
                 <TabPanel>
-                    <Thread />
+                    <Follow />
                 </TabPanel>
             </TabPanels>
         </Tabs>
     )
 }
 
-export default Konten
+export default Following
