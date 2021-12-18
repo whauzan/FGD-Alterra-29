@@ -9,6 +9,7 @@ import ProfilePict from '../components/ProfilePict'
 import cover from "../assets/img/629527.jpg";
 import Profile from "../assets/img/Rectangle 42.png";
 import Following from '../components/Following'
+import Footer from '../components/Footer'
 
 
 
@@ -16,7 +17,9 @@ const FollowingProfile = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-        <Container centerContent h={ '100vh' }>
+
+
+        <Container centerContent h={ '100vh' } w={ 'full' }>
             <CoverImage cover={ cover } />
             <VStack>
                 { Mobile ? (
@@ -78,6 +81,7 @@ const FollowingProfile = () =>
                     </VStack>
                 ) }
             </VStack>
+            <Footer />
         </Container>
     )
 }

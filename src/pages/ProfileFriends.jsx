@@ -9,6 +9,7 @@ import NameUsers from '../components/NameUsers';
 import ProfilePict from '../components/ProfilePict';
 import cover from "../assets/img/629527.jpg";
 import Profile from "../assets/img/Rectangle 42.png";
+import Footer from '../components/Footer';
 
 
 const ProfileFriends = () =>
@@ -78,6 +79,7 @@ const ProfileFriends = () =>
                     </VStack>
                 ) }
             </VStack>
+            <Footer />
         </Container>
     );
 }
