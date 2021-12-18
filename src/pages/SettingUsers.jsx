@@ -7,7 +7,7 @@ const SettingUsers = () =>
 {
     return (
         <Flex direction={ 'column' }>
-            <Container p={ 5 } >
+            <Container p={ 5 } mb={ 20 }>
                 <Box>
                     <Text fontWeight={ 'semibold' } fontSize={ 22 }>Sunting Profile</Text>
                 </Box>

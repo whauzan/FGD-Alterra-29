@@ -1,9 +1,9 @@
 import { Flex } from "@chakra-ui/react";
-import UsersProfile from "./pages/UsersProfile";
+import Navbar from "./components/Navbar";
 function App() {
   return (
     <Flex>
-      <UsersProfile />
+      <Navbar />
     </Flex>
   );
 }
