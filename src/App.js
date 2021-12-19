@@ -1,9 +1,11 @@
 import { Flex } from "@chakra-ui/react";
-import Navbar from "./components/Navbar";
+import Navbar from "./components/Navbar.jsx";
+import FollowingProfile from "./pages/FollowingProfile.jsx";
 function App() {
   return (
-    <Flex>
+    <Flex direction={"column"}>
       <Navbar />
+      <FollowingProfile />
     </Flex>
   );
 }
