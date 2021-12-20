@@ -1,4 +1,6 @@
 import { StarIcon } from '@chakra-ui/icons';
+import { Icon } from '@chakra-ui/react';
+import { MdRecommend } from 'react-icons/md'
 import { Box, Center, Divider, HStack, Text, useMediaQuery, VStack } from '@chakra-ui/react'
 import React from 'react'
 import AktifDi from './AktifDi'
@@ -22,6 +24,9 @@ const Badges = ( { iconbadges, title } ) =>
                             </Box>
                             <Box>
                                 <Text ><StarIcon color={ 'red.600' } /> </Text>
+                            </Box>
+                            <Box>
+                                <Text><Icon as={MdRecommend} color={'red.600'} /></Text>
                             </Box>
                         </HStack>
                     </Box>
