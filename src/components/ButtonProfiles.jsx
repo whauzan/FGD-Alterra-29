@@ -6,7 +6,7 @@ const ButtonProfiles = ( { messages } ) =>
     return (
         <Button
             size='sm'
-            width={ 40 }
+            width={ [ '150px' ] }
             border='2px'
             fontWeight={ 'medium' }
             fontSize={ 12 }
@@ -14,8 +14,8 @@ const ButtonProfiles = ( { messages } ) =>
             _hover={ { bg: "brand.100", color: "white" } }
             borderColor='brand.100'
             borderRadius={ "full" }
-            paddingLeft={ 10 }
-            paddingRight={ 10 }>
+            paddingLeft={ 8 }
+            paddingRight={ 8 }>
             { messages }
         </Button>
     )

@@ -1,21 +1,25 @@
-import { Box, Center, Container, Flex, HStack, useMediaQuery, VStack } from '@chakra-ui/react';
+import { Box, Center, Container, Flex, HStack, useMediaQuery, VStack } from '@chakra-ui/react'
 import React from 'react'
-import Achievement from '../components/Achievement';
-import Badges from '../components/Badges';
-import ButtonProfiles from '../components/ButtonProfiles';
-import CoverImage from '../components/CoverImage';
-import Konten from '../components/Konten';
-import NameUsers from '../components/NameUsers';
-import ProfilePict from '../components/ProfilePict';
-import cover from "../assets/img/629527.jpg";
-import Profile from "../assets/img/Rectangle 42.png";
-import Footer from '../components/Footer';
+import Achievement from '../../components/Achievement'
+import Badges from '../../components/Badges'
+import ButtonProfiles from '../../components/ButtonProfiles'
+import CoverImage from '../../components/CoverImage'
+import NameUsers from '../../components/NameUsers'
+import ProfilePict from '../../components/ProfilePict'
+import cover from "../../assets/img/629527.jpg";
+import Profile from "../../assets/img/Rectangle 42.png";
+import Following from '../../components/Following'
+import Footer from '../../components/Footer'
 
-const UsersProfile = () =>
+
+
+const FollowingProfile = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-        <Container centerContent h={ '100vh' }>
+
+
+        <Container centerContent h={ '100vh' } w={ 'full' }>
             <CoverImage cover={ cover } />
             <VStack>
                 { Mobile ? (
@@ -37,7 +41,7 @@ const UsersProfile = () =>
                                     <Achievement post={ 3 } thread={ 5 } />
                                     <HStack>
                                         <Box width={ { md: "20em", lg: "30em" } }>
-                                            <Konten kiri={ "Post" } kanan={ "Thread" } />
+                                            <Following kiri={ "Followers" } kanan={ "Following" } />
                                         </Box>
                                     </HStack>
                                     <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
@@ -70,7 +74,7 @@ const UsersProfile = () =>
                             <Achievement post={ 3 } thread={ 5 } />
                             <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
                             <Center mt={ 5 }>
-                                <Konten kiri={ "Post" } kanan={ "Thread" } />
+                                <Following kiri={ "Followers" } kanan={ "Following" } />
                             </Center>
                         </Flex>
                     </VStack>
@@ -81,4 +85,4 @@ const UsersProfile = () =>
     )
 }
 
-export default UsersProfile
+export default FollowingProfile
