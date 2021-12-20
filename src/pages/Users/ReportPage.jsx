@@ -1,6 +1,6 @@
 import { Box, Button, Center, Flex, FormControl, FormLabel, Heading, Input, Select, VStack } from '@chakra-ui/react'
 import React from 'react'
-import Footer from '../components/Footer'
+import Footer from '../../components/Footer'
 
 const ReportPage = () =>
 {
@@ -16,7 +16,7 @@ const ReportPage = () =>
                 mx="auto"
                 rounded="lg"
                 shadow="md"
-                w={ '530px' }
+                w={ [ '340', '530px' ] }
                 maxW="2xl"
             >
                 <Box p={ 6 }>

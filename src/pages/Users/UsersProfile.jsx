@@ -1,18 +1,17 @@
 import { Box, Center, Container, Flex, HStack, useMediaQuery, VStack } from '@chakra-ui/react';
 import React from 'react'
-import Achievement from '../components/Achievement';
-import Badges from '../components/Badges';
-import ButtonProfiles from '../components/ButtonProfiles';
-import CoverImage from '../components/CoverImage';
-import Konten from '../components/Konten';
-import NameUsers from '../components/NameUsers';
-import ProfilePict from '../components/ProfilePict';
-import cover from "../assets/img/629527.jpg";
-import Profile from "../assets/img/Rectangle 42.png";
-import Footer from '../components/Footer';
+import Achievement from '../../components/Achievement';
+import Badges from '../../components/Badges';
+import ButtonProfiles from '../../components/ButtonProfiles';
+import CoverImage from '../../components/CoverImage';
+import Konten from '../../components/Konten';
+import NameUsers from '../../components/NameUsers';
+import ProfilePict from '../../components/ProfilePict';
+import cover from "../../assets/img/629527.jpg";
+import Profile from "../../assets/img/Rectangle 42.png";
+import Footer from '../../components/Footer';
 
-
-const ProfileFriends = () =>
+const UsersProfile = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
@@ -21,7 +20,7 @@ const ProfileFriends = () =>
             <VStack>
                 { Mobile ? (
                     <Flex direction={ "column" }>
-                        <HStack spacing={ { md: "3em", lg: "10em", xl: "13em" } }>
+                        <HStack spacing={ { md: "3em", lg: "15em", xl: "18em" } }>
                             <ProfilePict Profile={ Profile } Top={ 60 } />
                             <NameUsers
                                 username={ "Spiderman Ganteng" }
@@ -29,8 +28,7 @@ const ProfileFriends = () =>
                                 bio={ "Kang Ngarang" }
                             />
                             <HStack>
-                                <ButtonProfiles messages={ "Follow" } />
-                                <ButtonProfiles messages={ "Messages" } />
+                                <ButtonProfiles messages={ "Edit Profile" } />
                             </HStack>
                         </HStack>
                         <VStack>
@@ -66,8 +64,7 @@ const ProfileFriends = () =>
                             </Box>
                             <Center>
                                 <HStack spacing={ 2 }>
-                                    <ButtonProfiles messages={ "Follow" } />
-                                    <ButtonProfiles messages={ "Messages" } />
+                                    <ButtonProfiles messages={ "Edit Profile" } />
                                 </HStack>
                             </Center>
                             <Achievement post={ 3 } thread={ 5 } />
@@ -81,7 +78,7 @@ const ProfileFriends = () =>
             </VStack>
             <Footer />
         </Container>
-    );
+    )
 }
 
-export default ProfileFriends
+export default UsersProfile

@@ -6,7 +6,6 @@ import profiles from '../assets/img/Rectangle 42.png'
 
 const Navbar = () =>
 {
-  // const [ Mobile ] = useMediaQuery( "(min-width: 960px)" );
   const [ menuOpen, setMenuOpen ] = useState( false )
   return (
     <Box

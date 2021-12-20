@@ -1,8 +1,8 @@
 import { Box, Button, Container, Flex, FormControl, FormHelperText, FormLabel, Image, Input, Stack, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
-import camera from '../assets/icons/kamera.png'
-import profile from '../assets/img/Rectangle 42.png'
-import Footer from '../components/Footer'
+import camera from '../../assets/icons/kamera.png'
+import profile from '../../assets/img/Rectangle 42.png'
+import Footer from '../../components/Footer'
 const SettingUsers = () =>
 {
     return (
