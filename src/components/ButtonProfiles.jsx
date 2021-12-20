@@ -11,6 +11,7 @@ const ButtonProfiles = ( { messages } ) =>
             fontWeight={ 'medium' }
             fontSize={ 12 }
             bg={ "white" }
+            color={"brand.100"}
             _hover={ { bg: "brand.100", color: "white" } }
             borderColor='brand.100'
             borderRadius={ "full" }
