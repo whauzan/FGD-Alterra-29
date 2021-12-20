@@ -5,7 +5,7 @@ import logo from '../assets/img/DKKU__3_-removebg-preview.png'
 const Footer = () =>
 {
     return (
-        <Box mt={ 60 } mb={ 10 } >
+        <Box mt={ 20 } >
             <Flex bg={ 'brand.100' } h={ [ '380px', '248px' ] } direction={ [ 'row' ] } w={ [ '25em', '30em', '56em', '70em', '78.9em', '94.8em' ] }
                 justify={ { base: 'center', md: 'space-around' } }
                 alignItems={ 'center' }>
