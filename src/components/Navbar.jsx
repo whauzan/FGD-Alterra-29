@@ -17,12 +17,6 @@ const Navbar = () =>
             <Avatar src={ logos } bg={ 'white' } />
           </MenuButton>
           <MenuList>
-            <MenuItem>
-              Create Thread
-            </MenuItem>
-            <MenuItem>
-              Q nA
-            </MenuItem>
             <Flex direction={ 'column' }>
               <HStack onClick={ () => setMenuOpen( !menuOpen ) }>
                 <Text ml={ 3 }>Kategori</Text>
