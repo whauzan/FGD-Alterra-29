@@ -10,6 +10,8 @@ const Navbar = () =>
   return (
     <Box
       p={ 1 }
+      bg={ 'white' }
+      position={ 'fixed' }
     >
       <HStack spacing={ [ 1, 5 ] } w={ 'full' }>
         <Menu>
