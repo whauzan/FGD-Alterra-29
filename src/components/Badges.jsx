@@ -18,15 +18,12 @@ const Badges = ( { iconbadges, title } ) =>
                 }
                 <VStack spacing={ 5 }>
                     <Box mt={ 5 }>
-                        <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 40 } : 40 } fontSize={ 25 }>
+                        <HStack spacing={ Mobile ? { md: 5, xl: 20 } : 40 } fontSize={ 25 }>
                             <Box >
                                 <Text> <StarIcon color={ 'brand.100' } /> </Text>
                             </Box>
                             <Box>
-                                <Text ><StarIcon color={ 'red.600' } /> </Text>
-                            </Box>
-                            <Box>
-                                <Text><Icon as={MdRecommend} color={'red.600'} /></Text>
+                                <Text><Icon as={ MdRecommend } color={ 'red.600' } /></Text>
                             </Box>
                         </HStack>
                     </Box>
