@@ -2,16 +2,20 @@ import { Avatar, Box, Button, Flex, HStack, Image, Input, InputGroup, InputLeftE
 import React, { useState } from 'react'
 import logos from '../assets/img/DKKU__2_-removebg-preview 1.png'
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
-import profiles from '../assets/img/Rectangle 42.png'
+import ModalLogin from './ModalLogin'
+import Profile from './Profile'
+
 
 const Navbar = () =>
 {
+  const [ IsLogin, ] = useState( false )
   const [ menuOpen, setMenuOpen ] = useState( false )
   return (
     <Box
       p={ 1 }
       bg={ 'white' }
       position={ 'fixed' }
+      zIndex={ 3 }
     >
       <HStack spacing={ [ 1, 5 ] } w={ 'full' }>
         <Menu>
@@ -76,18 +80,7 @@ const Navbar = () =>
             Create Thread
           </Button>
           <Box >
-            <Menu>
-              <MenuButton as={ Text } fontWeight={ 'medium' } fontSize={ '18px' }>
-                <Avatar src={ profiles } />
-              </MenuButton>
-              <MenuList>
-                <MenuItem>Download</MenuItem>
-                <MenuItem>Create a Copy</MenuItem>
-                <MenuItem>Mark as Draft</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Attend a Workshop</MenuItem>
-              </MenuList>
-            </Menu>
+            { IsLogin ? ( <Profile /> ) : ( <ModalLogin /> ) }
           </Box>
         </HStack>
       </HStack>
