@@ -5,7 +5,7 @@ import { AiFillFire, AiFillPlusCircle } from "react-icons/ai";
 const NavBotom = () =>
 {
     return (
-        <Box position={ 'absolute' }>
+        <Box zIndex={ 3 }>
             <HStack spacing={ [ 1, 5 ] } w={ 'full' } position={ 'fixed' } display={ [ 'flex', 'none' ] } bottom={ 0 } bg={ 'white' }>
                 <HStack display={ [ 'flex' ] } p={ 4 } spacing={ 10 }>
                     <Box>
