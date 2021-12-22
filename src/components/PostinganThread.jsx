@@ -13,10 +13,11 @@ const PostinganThread = ( { profile } ) =>
     console.log( inputList );
     const onAddBtnClick = () =>
     {
-        console.log( 'a' );
         setInputList( inputList.concat( <FormBalas tagClick={ onAddBtnClick } key={ inputList.length } /> ) );
         console.log( 'b' );
     };
+
+
     return (
         <Box w={ [ '350px', '700px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } }>
             <Box display={ 'flex' } >

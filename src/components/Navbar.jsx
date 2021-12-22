@@ -15,6 +15,7 @@ const Navbar = () =>
       p={ 1 }
       bg={ 'white' }
       position={ 'fixed' }
+      zIndex={ 3 }
     >
       <HStack spacing={ [ 1, 5 ] } w={ 'full' }>
         <Menu>
