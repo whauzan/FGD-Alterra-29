@@ -1,4 +1,3 @@
-
 import { Box, Flex, Link, Text, VStack } from '@chakra-ui/react'
 import React from 'react'
 import profile from '../../assets/img/Rectangle 42.png'
