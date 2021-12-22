@@ -81,7 +81,7 @@ export default PostinganThread
 
 
 
-const FormBalas = ( { tagClick } ) =>
+const FormBalas = ( { tagClick, children } ) =>
 {
     return (
         <Box display={ 'flex' } mt={ 3 }>
@@ -94,6 +94,7 @@ const FormBalas = ( { tagClick } ) =>
                     <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
                     <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
                 </HStack>
+                { children }
             </Box>
         </Box>
     )
