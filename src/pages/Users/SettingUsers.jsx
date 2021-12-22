@@ -41,33 +41,33 @@ const SettingUsers = () =>
                             </Box>
                         </Stack>
                     </FormControl>
-                    <VStack top={ '8em' } mt={ '130px' } spacing={ '5' }>
-                        <FormControl id='username'>
+                    <VStack top={ '8em' } mt={ '130px' } spacing={ '5' } position={ 'static' }>
+                        <FormControl position={ 'static' } id='username'>
                             <FormLabel>Username</FormLabel>
-                            <Input type='text' placeholder='Isi Username anda' />
+                            <Input position={ 'static' } type='text' placeholder='Isi Username anda' />
                         </FormControl>
-                        <FormControl id='email'>
+                        <FormControl id='email' position={ 'static' }>
                             <FormLabel>Email address</FormLabel>
-                            <Input type='email' placeholder='VenomUnyuUnyu@gmail.com' />
+                            <Input position={ 'static' } type='email' placeholder='VenomUnyuUnyu@gmail.com' />
                             <FormHelperText>We'll never share your email.</FormHelperText>
                         </FormControl>
-                        <FormControl id='telp'>
+                        <FormControl id='telp' position={ 'static' }>
                             <FormLabel>No Telp</FormLabel>
-                            <Input type='tel' placeholder='Anda belum mengisi nomor telpon' />
+                            <Input position={ 'static' } type='tel' placeholder='Anda belum mengisi nomor telpon' />
                         </FormControl>
-                        <FormControl id='ttl'>
+                        <FormControl id='ttl' position={ 'static' }>
                             <FormLabel>TTL</FormLabel>
-                            <Input type='date' />
+                            <Input type='date' position={ 'static' } />
                         </FormControl>
-                        <FormControl id='bio'>
+                        <FormControl id='bio' position={ 'static' }>
                             <FormLabel>Biodata</FormLabel>
-                            <Input type='text' placeholder='Biodata' />
+                            <Input position={ 'static' } type='text' placeholder='Biodata' />
                         </FormControl>
-                        <FormControl id='address'>
+                        <FormControl position={ 'static' } id='address'>
                             <FormLabel>Alamat</FormLabel>
-                            <Input type='text' placeholder='Isi alamat anda' />
+                            <Input position={ 'static' } type='text' placeholder='Isi alamat anda' />
                         </FormControl>
-                        <Button colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
+                        <Button position={ 'static' } colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
                     </VStack>
                 </Box>
             </Container >

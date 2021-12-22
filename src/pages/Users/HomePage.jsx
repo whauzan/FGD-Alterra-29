@@ -7,8 +7,8 @@ import PostinganThread from '../../components/PostinganThread'
 const HomePage = () =>
 {
     return (
-        <Flex justifyContent={ 'center' } direction={ [ 'column-reverse', 'row' ] } p={ [ 5, 0 ] }>
-            <Box w={ '200px' } display={ [ 'none', 'flex' ] } mt={ 20 }>
+        <Flex justifyContent={ 'center' } direction={ { base: 'column-reverse', md: 'column-reverse', lg: 'row' } } p={ [ 5, 0 ] } mb={ 20 }>
+            <Box w={ '200px' } display={ { base: 'none', xl: 'flex' } } mt={ 20 }>
                 <Box position={ 'fixed' }>
                     <VStack spacing={ 10 }>
                         <Link>Home</Link>
@@ -18,7 +18,7 @@ const HomePage = () =>
                 </Box>
             </Box>
             <PostinganThread profile={ profile } />
-            <Box w={ [ '350px', '200px' ] }>
+            <Box mt={ [ 10, 20 ] } w={ [ '350px', '200px' ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } }>
                 <Text>Recent News</Text>
                 <Box display={ 'flex' } flexDirection={ [ 'row', 'column' ] } mb={ 5 }>
                     <NewsCard />
