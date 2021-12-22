@@ -1,7 +1,7 @@
 import { Box, Button, HStack, Icon } from '@chakra-ui/react'
 import React from 'react'
-import { MdFiberSmartRecord, MdHome, MdPlusOne, MdRecommend } from 'react-icons/md'
-
+import { MdHome, MdRecommend } from 'react-icons/md'
+import { AiFillFire, AiFillPlusCircle } from "react-icons/ai";
 const NavBotom = () =>
 {
     return (
@@ -15,10 +15,10 @@ const NavBotom = () =>
                         <Button variant={ 'ghost' }><Icon as={ MdRecommend } h={ 100 } w={ 'full' } color={ 'red.600' } /></Button>
                     </Box>
                     <Box>
-                        <Button variant={ 'ghost' }><Icon as={ MdFiberSmartRecord } h={ 100 } w={ 'full' } color={ 'red.600' } /></Button>
+                        <Button variant={ 'ghost' }><Icon as={ AiFillFire } h={ 100 } w={ 'full' } color={ 'red.600' } /></Button>
                     </Box>
                     <Box>
-                        <Button variant={ 'ghost' }><Icon as={ MdPlusOne } h={ 100 } w={ 'full' } color={ 'red.600' } /></Button>
+                        <Button variant={ 'ghost' }><Icon as={ AiFillPlusCircle } h={ 100 } w={ 'full' } color={ 'red.600' } /></Button>
                     </Box>
                 </HStack>
             </HStack>
