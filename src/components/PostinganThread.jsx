@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { MdRecommend } from 'react-icons/md'
 import cover from '../assets/img/629527.jpg'
 import profile from '../assets/img/Rectangle 42.png'
+import { FaCommentAlt, FaShareAlt } from "react-icons/fa";
 const PostinganThread = ( { profile } ) =>
 {
     const [ inputList, setInputList ] = useState( [] );
@@ -12,10 +13,11 @@ const PostinganThread = ( { profile } ) =>
     console.log( inputList );
     const onAddBtnClick = () =>
     {
-        console.log( 'a' );
         setInputList( inputList.concat( <FormBalas tagClick={ onAddBtnClick } key={ inputList.length } /> ) );
         console.log( 'b' );
     };
+
+
     return (
         <Box w={ [ '350px', '700px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } }>
             <Box display={ 'flex' } >
@@ -59,15 +61,14 @@ const PostinganThread = ( { profile } ) =>
                         </Box>
                         <Spacer />
                         <Box display={ 'flex' } flexDirection={ 'row' } justifyContent={ 'center' } alignItems={ 'center' }>
-                            <Box display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '25px' } color={ 'brand.400' } as={ MdRecommend } /></Box><Text ml={ 2 } mr={ 2 }>1 komentar</Text>
+                            <Box display={ 'flex' } onClick={ onAddBtnClick } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '20px' } color={ 'brand.400' } as={ FaCommentAlt } /></Box><Text ml={ 2 } mr={ 2 }>1 komentar</Text>
                         </Box>
-                        <Box display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '25px' } color={ 'brand.400' } as={ MdRecommend } /></Box>
+                        <Box display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '25px' } color={ 'brand.400' } as={ FaShareAlt } /></Box>
                     </Box>
                 </Box>
             </Box>
             <Box>
                 <Box display={ 'flex' } flexDirection={ 'column' } mt={ 10 }>
-                    <FormBalas tagClick={ onAddBtnClick } />
                     { inputList }
                 </Box>
                 <Divider mt={ 10 } orientation='horizontal' />
@@ -87,7 +88,7 @@ const FormBalas = ( { tagClick } ) =>
             <Image src={ profile } borderRadius={ 'full' } w={ '50px' } mb={ 5 } />
             <Box ml={ 2 }>
                 <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } />
+                <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } />
                 <Divider />
                 <HStack mt={ 2 }>
                     <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>

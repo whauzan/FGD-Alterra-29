@@ -41,7 +41,7 @@ const SettingUsers = () =>
                             </Box>
                         </Stack>
                     </FormControl>
-                    <VStack top={ '8em' } mt={ '130px' } spacing={ '5' }>
+                    <VStack mt={ '130px' } position={ 'relative' } spacing={ '5' }>
                         <FormControl id='username'>
                             <FormLabel>Username</FormLabel>
                             <Input type='text' placeholder='Isi Username anda' />
@@ -67,12 +67,12 @@ const SettingUsers = () =>
                             <FormLabel>Alamat</FormLabel>
                             <Input type='text' placeholder='Isi alamat anda' />
                         </FormControl>
-                        <Button colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
-                    </VStack>
-                </Box>
+                        <Button position={ 'relative' } colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
+                    </VStack >
+                </Box >
             </Container >
             <Footer />
-        </Flex>
+        </Flex >
     )
 }
 
