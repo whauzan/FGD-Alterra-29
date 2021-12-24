@@ -4,6 +4,7 @@ import logos from '../assets/img/DKKU__2_-removebg-preview 1.png'
 import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
 import ModalLogin from './ModalLogin'
 import Profile from './Profile'
+import { Link } from 'react-router-dom'
 
 
 const Navbar = () =>
@@ -36,9 +37,11 @@ const Navbar = () =>
           </MenuList>
         </Menu>
         <Box display={ [ 'none', 'flex' ] }>
-          <Image
-            src={ logos }
-          />
+          <Link to={`/`}>
+            <Image
+              src={ logos }
+            />
+          </Link>
         </Box>
         <HStack spacing={ { base: 2, lg: 10, '2xl': '90px' } }>
           <Box display={ { base: 'none', md: 'block' } } alignItems={ 'center' }>
