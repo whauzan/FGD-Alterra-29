@@ -1,15 +1,17 @@
-import { Flex } from "@chakra-ui/react";
-import Navbar from "./components/Navbar.jsx";
-import NavBotom from "./components/NavBotom.jsx";
 import HomePage from "./pages/Users/HomePage.jsx";
+import ProfileFriends from "./pages/Users/ProfileFriends.jsx";
+import ReportPage from "./pages/Users/ReportPage"
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 
 function App() {
   return (
-    <Flex direction={"column"}>
-      <Navbar />
-      <NavBotom />
-      <HomePage />
-    </Flex>
+    <Router>
+      <Routes>
+        <Route path='/' element={<HomePage />} />
+        <Route path='/user/id' element={<ProfileFriends />} />
+        <Route path='/report/id' element={<ReportPage />} />
+      </Routes>
+    </Router>
   );
 }
 
