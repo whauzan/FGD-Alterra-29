@@ -5,6 +5,7 @@ import { MdRecommend } from 'react-icons/md'
 import cover from '../assets/img/629527.jpg'
 import profile from '../assets/img/Rectangle 42.png'
 import { FaCommentAlt, FaShareAlt } from "react-icons/fa";
+import { Link } from 'react-router-dom'
 const PostinganThread = ( { profile } ) =>
 {
     const [ inputList, setInputList ] = useState( [] );
@@ -22,9 +23,11 @@ const PostinganThread = ( { profile } ) =>
         <Box w={ [ '350px', '700px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } }>
             <Box display={ 'flex' } >
                 <Box display={ 'flex' }>
-                    <Box>
-                        <Image w={ '47px' } src={ profile } borderRadius={ 'full' } />
-                    </Box>
+                    <Link to={`/user/id`}>
+                        <Box>
+                            <Image w={ '47px' } src={ profile } borderRadius={ 'full' } />
+                        </Box>
+                    </Link>
                     <Box ml={ 4 }>
                         <Text fontSize={ '14' } fontWeight={ 'semibold' }>Spiderman Ganteng</Text>
                         <Text mt={ 1 } fontSize={ '13' } fontWeight={ 'normal' } color={ 'brand.200' }>Kemarin 19.13</Text>
@@ -38,7 +41,9 @@ const PostinganThread = ( { profile } ) =>
                         </MenuButton>
                         <MenuList>
                             <MenuItem>Simpan</MenuItem>
-                            <MenuItem>Laporkan</MenuItem>
+                            <Link to={`/report/id`}>
+                                <MenuItem>Laporkan</MenuItem>
+                            </Link>
                         </MenuList>
                     </Menu>
                 </Box>
