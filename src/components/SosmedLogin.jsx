@@ -4,8 +4,13 @@ import { FcGoogle } from "react-icons/fc";
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login/dist/facebook-login-render-props'
 import { FaFacebook } from 'react-icons/fa';
+
 const SosmedLogin = () =>
 {
+    const responseGoogle = ( response ) =>
+    {
+        console.log( response );
+    }
     return (
         <Box mt={ 3 } display={ 'flex' } justifyContent={ 'space-between' }>
             <GoogleLogin
@@ -15,6 +20,7 @@ const SosmedLogin = () =>
                         <Icon as={ FcGoogle } mr={ 3 } />
                         Google</Button>
                 ) }
+                onSuccess={ responseGoogle }
             />
             <FacebookLogin
                 appId="629431818422391"

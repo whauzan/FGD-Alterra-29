@@ -1,4 +1,4 @@
-import { Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, HStack, Image, Text, useDisclosure, VStack } from '@chakra-ui/react'
+import { Box, Button, Drawer, DrawerBody, DrawerContent, DrawerHeader, DrawerOverlay, Image, Text, useDisclosure, VStack } from '@chakra-ui/react'
 import React from 'react'
 import logo from '../assets/img/DKKU__2_-removebg-preview 1.png'
 

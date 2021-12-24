@@ -23,7 +23,7 @@ const LayoutAdmin = ( { children } ) =>
                     <Box alignItems={ 'center' } ml={ 3 } display={ 'flex' }>
                         <Icon display={ [ 'none', 'flex' ] } as={ BellIcon } ml={ 3 } fontSize={ '20px' } />
                         <Text display={ [ 'none', 'flex' ] } ml={ 3 } fontSize={ '12px' } >ini Admin</Text>
-                        <Avatar ml={ 5 } src='' />
+                        <Avatar size={ 'sm' } ml={ 5 } src='' />
                     </Box>
                 </Box>
                 { children }
