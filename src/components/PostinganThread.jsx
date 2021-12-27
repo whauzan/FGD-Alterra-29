@@ -9,13 +9,12 @@ import { Link } from 'react-router-dom'
 const PostinganThread = ( { profile } ) =>
 {
     const [ inputList, setInputList ] = useState( [] );
-
+    const [ komenOpen, setKomenOpen ] = useState( false )
 
     console.log( inputList );
-    const onAddBtnClick = () =>
+    const OnaddBtn = () =>
     {
-        setInputList( inputList.concat( <FormBalas tagClick={ onAddBtnClick } key={ inputList.length } /> ) );
-        console.log( 'b' );
+        setInputList( inputList.concat( <FormBalas tagClick={ OnaddBtn } key={ inputList.length }></FormBalas> ) );
     };
 
 
@@ -66,15 +65,17 @@ const PostinganThread = ( { profile } ) =>
                         </Box>
                         <Spacer />
                         <Box display={ 'flex' } flexDirection={ 'row' } justifyContent={ 'center' } alignItems={ 'center' }>
-                            <Box display={ 'flex' } onClick={ onAddBtnClick } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '20px' } color={ 'brand.400' } as={ FaCommentAlt } /></Box><Text ml={ 2 } mr={ 2 }>1 komentar</Text>
+                            <Box display={ 'flex' } onClick={ () => setKomenOpen( !komenOpen ) } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '20px' } color={ 'brand.400' } as={ FaCommentAlt } /></Box><Text ml={ 2 } mr={ 2 }>1 komentar</Text>
                         </Box>
                         <Box display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '25px' } color={ 'brand.400' } as={ FaShareAlt } /></Box>
                     </Box>
                 </Box>
             </Box>
             <Box>
-                <Box display={ 'flex' } flexDirection={ 'column' } mt={ 10 }>
-                    { inputList }
+                <Box display={ komenOpen ? 'flex' : 'none' } flexDirection={ 'column' } mt={ 10 }>
+                    <FormBalas tagClick={ OnaddBtn }>
+                        { inputList }
+                    </FormBalas>
                 </Box>
                 <Divider mt={ 10 } orientation='horizontal' />
             </Box>
@@ -89,18 +90,22 @@ export default PostinganThread
 const FormBalas = ( { tagClick, children } ) =>
 {
     return (
-        <Box display={ 'flex' } mt={ 3 }>
-            <Image src={ profile } borderRadius={ 'full' } w={ '50px' } mb={ 5 } />
-            <Box ml={ 2 }>
-                <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } />
-                <Divider />
-                <HStack mt={ 2 }>
-                    <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
-                    <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
-                </HStack>
+        <>
+            <Box display={ 'flex' } mt={ 3 }>
+                <Image src={ profile } borderRadius={ 'full' } w={ '50px' } mb={ 5 } />
+                <Box ml={ 2 }>
+                    <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
+                    <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } />
+                    <Divider />
+                    <HStack mt={ 2 }>
+                        <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
+                        <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
+                    </HStack>
+                </Box>
+            </Box>
+            <Box ml={ '60px' } w={ [ '300px', '540px' ] }>
                 { children }
             </Box>
-        </Box>
+        </>
     )
 }
