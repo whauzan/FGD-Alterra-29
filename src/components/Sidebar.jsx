@@ -6,7 +6,7 @@ const Sidebar = () =>
 {
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
-        <Box w={ '250px' }>
+        <Box w={ '250px' } h={ 'full' }>
             <VStack display={ [ 'none', 'flex' ] } spacing={ '40px' } h={ '100vh' } p={ 5 }>
                 <Image src={ logo } />
                 <Text>Overview</Text>
