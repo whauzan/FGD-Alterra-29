@@ -70,18 +70,20 @@ const Navbar = () =>
               <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] } placeholder="Search..." />
             </InputGroup>
           </Box>
-          <Button
-            size='sm'
-            width={ 40 }
-            display={ [ 'none', 'flex' ] }
-            variant='solid'
-            colorScheme={ 'purple' }
-            fontWeight={ 'medium' }
-            fontSize={ 12 }
-            borderRadius={ "full" }
-          >
-            Create Thread
-          </Button>
+          <Link to={`/create-thread`}>
+            <Button
+              size='sm'
+              width={ 40 }
+              display={ [ 'none', 'flex' ] }
+              variant='solid'
+              colorScheme={ 'purple' }
+              fontWeight={ 'medium' }
+              fontSize={ 12 }
+              borderRadius={ "full" }
+            >
+              Create Thread
+            </Button>
+          </Link>
           <Box >
             { IsLogin ? ( <Profile /> ) : ( <ModalLogin /> ) }
           </Box>
