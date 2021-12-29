@@ -1,11 +1,10 @@
-import { StarIcon } from '@chakra-ui/icons';
-import { Icon } from '@chakra-ui/react';
-import { MdRecommend } from 'react-icons/md'
-import { Box, Center, Divider, HStack, Text, useMediaQuery, VStack } from '@chakra-ui/react'
+import { PhoneIcon } from '@chakra-ui/icons';
+import { Tooltip } from '@chakra-ui/react';
+import { Box, Center, Divider, Text, useMediaQuery, VStack } from '@chakra-ui/react'
 import React from 'react'
 import AktifDi from './AktifDi'
 
-const Badges = ( { iconbadges, title } ) =>
+const Badges = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
@@ -16,28 +15,16 @@ const Badges = ( { iconbadges, title } ) =>
                         <Text fontSize={ 13 } fontWeight={ 'medium' }>Badges</Text>
                     </Center> )
                 }
-                <VStack spacing={ 5 }>
-                    <Box mt={ 5 }>
-                        <HStack spacing={ Mobile ? { md: 5, xl: 20 } : 40 } fontSize={ 25 }>
-                            <Box >
-                                <Text> <StarIcon color={ 'brand.100' } /> </Text>
-                            </Box>
-                            <Box>
-                                <Text><Icon as={ MdRecommend } color={ 'red.600' } /></Text>
-                            </Box>
-                        </HStack>
+                <Box mt={ 10 }>
+                    <Box display={ 'flex' } justifyContent={ 'space-between' }>
+                        <Tooltip mt={ 20 } hasArrow label='Suka Mencari' bg='gray.300' color='black'>
+                            <PhoneIcon fontSize={ '30px' } />
+                        </Tooltip>
+                        <Tooltip hasArrow label='Suka Telpon' bg='gray.300' color='black'>
+                            <PhoneIcon fontSize={ '30px' } color={ 'red.600' } />
+                        </Tooltip>
                     </Box>
-                    <Box mt={ 5 }>
-                        <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 20 } : 20 }>
-                            <Box>
-                                <Text>{ title }</Text>
-                            </Box>
-                            <Box>
-                                <Text>{ title }</Text>
-                            </Box>
-                        </HStack>
-                    </Box>
-                </VStack>
+                </Box>
             </Box >
             <Divider mt={ 5 } mb={ 5 } orientation='horizontal' />
             <AktifDi />

@@ -1,11 +1,12 @@
-import { Box, Button, Divider, FormControl, FormLabel, Image, Input, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react'
+import { Box, Button, Divider, FormControl, FormLabel, Icon, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react'
 import React from 'react'
 import logoLogin from '../assets/img/imglogin.png'
 import SosmedLogin from './SosmedLogin'
-
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const ModalLogin = () =>
 {
+    const [ show, setShow ] = React.useState( false )
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
@@ -30,7 +31,18 @@ const ModalLogin = () =>
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel htmlFor='Password'>Password</FormLabel>
-                                                <Input id='Password' type='text' />
+                                                <InputGroup size='md'>
+                                                    <Input
+                                                        pr='4.5rem'
+                                                        type={ show ? 'text' : 'password' }
+                                                        placeholder='Enter password'
+                                                    />
+                                                    <InputRightElement width='4.5rem'>
+                                                        <Button h='1.75rem' size='sm' variant={ 'ghost' } onClick={ () => setShow( !show ) }>
+                                                            { show ? ( <Icon as={ AiFillEye } /> ) : ( <Icon as={ AiFillEyeInvisible } /> ) }
+                                                        </Button>
+                                                    </InputRightElement>
+                                                </InputGroup>
                                             </FormControl>
                                             <Button size={ 'sm' } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
                                             <Box display={ 'flex' } mt={ 4 } justifyContent={ 'space-around' }>
