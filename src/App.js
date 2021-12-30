@@ -1,10 +1,9 @@
 import { Flex } from "@chakra-ui/react";
-
-import SettingUsers from "./pages/Admin/SettingUsers.jsx";
+import Routers from "./routes";
 function App() {
   return (
     <Flex direction={"column"}>
-      <SettingUsers />
+      <Routers />
     </Flex>
   );
 }

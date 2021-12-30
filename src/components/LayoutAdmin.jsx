@@ -2,6 +2,7 @@ import { Avatar, Box, Flex, Icon, Input, InputGroup, InputLeftElement, Text } fr
 import React from 'react'
 import Sidebar from './Sidebar'
 import { BellIcon, SearchIcon } from '@chakra-ui/icons'
+import { Link } from 'react-router-dom'
 
 
 const LayoutAdmin = ( { children } ) =>
@@ -22,8 +23,12 @@ const LayoutAdmin = ( { children } ) =>
                     </Box>
                     <Box alignItems={ 'center' } ml={ 3 } display={ 'flex' }>
                         <Icon display={ [ 'none', 'flex' ] } as={ BellIcon } ml={ 3 } fontSize={ '20px' } />
-                        <Text display={ [ 'none', 'flex' ] } ml={ 3 } fontSize={ '12px' } >ini Admin</Text>
-                        <Avatar size={ 'sm' } ml={ 5 } src='' />
+                        <Link to={ '/admin/setting' }>
+                            <Box ml={ 3 } display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' }>
+                                <Text display={ [ 'none', 'flex' ] } ml={ 3 } fontSize={ '12px' } >ini Admin</Text>
+                                <Avatar size={ 'sm' } ml={ 5 } src='' />
+                            </Box>
+                        </Link>
                     </Box>
                 </Box>
                 { children }
