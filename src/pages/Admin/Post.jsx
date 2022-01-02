@@ -30,8 +30,8 @@ const Post = () =>
                         <Text fontWeight={ 'bold' }>Admin System Users</Text>
                         <Text fontWeight={ 'bold' }>Users</Text>
                     </Box>
-                    <Box maxW={ '5xl' } m={ 3 } display={ 'flex' } p={ 5 } fontSize={ '16px' } borderWidth='1px' borderRadius='lg' >
-                        <Table variant='simple' fontSize={ '12px' }>
+                    <Box maxW={ [ '2xl', '3xl', '4xl' ] } m={ 3 } display={ 'flex' } p={ 5 } fontSize={ '16px' } borderWidth='1px' borderRadius='lg' >
+                        <Table variant='simple' fontSize={ '12px' } size={ { base: 'sm', md: 'md', lg: 'lg' } }>
                             <Thead>
                                 <Tr>
                                     <Th>UserName</Th>
@@ -43,7 +43,7 @@ const Post = () =>
                             <Tbody>
                                 { post.map( ( item, index ) =>
                                     <Tr key={ index }>
-                                        <Td display={ 'flex' } alignItems={ 'center' }><Avatar src='' size={ 'sm' } mr={ 2 } />pp</Td>
+                                        <Td ><Avatar src='' size={ 'sm' } mr={ 2 } />pp</Td>
                                         <Td>{ item.title }</Td>
                                         <Td>13-29</Td>
                                         <Td isNumeric>

@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
-import Post from "../components/Post";
 import Overview from "../pages/Admin/Overview";
 import Report from "../pages/Admin/Report";
 import SettingUsers from "../pages/Admin/SettingUsers";
@@ -9,7 +8,7 @@ import Users from "../pages/Admin/Users";
 import HomePage from "../pages/Users/HomePage";
 import ProfileFriends from "../pages/Users/ProfileFriends";
 import ReportPage from "../pages/Users/ReportPage";
-
+import Post from "../pages/Admin/Post";
 const Routers = () => {
   return (
     <Router>
