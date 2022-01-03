@@ -8,6 +8,42 @@ import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import { useState } from 'react'
 import profile from '../../assets/img/Rectangle 42.png'
 import { Link } from 'react-router-dom'
+import { firebase } from '../../Firebase/firebase-config'
+import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
+import imageCompression from 'browser-image-compression';
+
+const compressionOption = {
+    maxWidthOrHeight: 1080,
+    useWebWorker: true,
+};
+class MyUploadAdapter {
+  constructor(loader) {
+    this.loader = loader;
+  }
+  // Starts the upload process.
+  upload() {
+    if (firebase) {
+    return this.loader.file.then(
+      file =>
+        new Promise((resolve, reject) => {
+          let storageRef = getStorage();
+          let fileRef = ref(storageRef, file.name);
+          imageCompression(file, compressionOption).then((compressedFile) => {
+            uploadBytes(fileRef, compressedFile).then(() => {
+              getDownloadURL(fileRef)
+                .then((url) => {
+                  resolve({
+                    default: url
+                  })
+                }
+            )})
+            }
+          );
+        })
+    );
+  }
+}
+}
 
 const CreateThread = () => {
     const [data, setData] = useState();
@@ -56,11 +92,16 @@ const CreateThread = () => {
                                         <FormLabel htmlFor='title'>Judul Thread</FormLabel>
                                         <Input type='text' id='title' placeholder='Judul Thread' />
                                     </FormControl>
-                                    <Box>
+                                    <Box w={'full'}>
                                         <CKEditor
                                             editor={ ClassicEditor }
                                             data={ data }
                                             onChange={ handleInput }
+                                            onReady={editor => {
+                                                editor.plugins.get("FileRepository").createUploadAdapter = loader => {
+                                                    return new MyUploadAdapter(loader);
+                                                }
+                                            }}
                                         />
                                     </Box>
                                     <Button variant={ 'solid' } colorScheme={ 'purple' } w={ 'full' }>Submit</Button>
