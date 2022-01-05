@@ -1,23 +1,17 @@
 import { Avatar, Badge, Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
+import { Axios } from '../../helpers/axios'
 const Users = () =>
 {
     const [ users, setUsers ] = useState( [] )
     const getUsers = async () =>
     {
-        try
+        await Axios.get( '/users' ).then( response =>
         {
-            let url = 'https://jsonplaceholder.typicode.com/users'
-            let response = await axios.get( url )
             setUsers( response.data )
-        } catch ( error )
-        {
-            console.log( error );
-        }
+        } ).catch( error => console.log( error ) )
     }
-
 
     useEffect( () =>
     {

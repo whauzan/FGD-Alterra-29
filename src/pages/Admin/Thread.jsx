@@ -1,22 +1,17 @@
 import { Avatar, Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
+import { Axios } from '../../helpers/axios'
 
 const Thread = () =>
 {
     const [ post, setPost ] = useState( [] )
     const getUsers = async () =>
     {
-        try
+        await Axios.get( '/posts' ).then( responses =>
         {
-            let url = 'https://jsonplaceholder.typicode.com/posts'
-            let response = await axios.get( url )
-            setPost( response.data )
-        } catch ( error )
-        {
-            console.log( error );
-        }
+            setPost( responses.data )
+        } ).catch( error => console.log( error ) )
     }
     useEffect( () =>
     {
