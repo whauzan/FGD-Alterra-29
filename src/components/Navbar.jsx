@@ -5,11 +5,11 @@ import { ChevronDownIcon, SearchIcon } from '@chakra-ui/icons'
 import ModalLogin from './ModalLogin'
 import Profile from './Profile'
 import { Link } from 'react-router-dom'
-
+import { useSelector } from 'react-redux';
 
 const Navbar = () =>
 {
-  const [ IsLogin, ] = useState( false )
+  const userData = useSelector((state) => state.user.users);
   const [ menuOpen, setMenuOpen ] = useState( false )
   return (
     <Box
@@ -17,6 +17,7 @@ const Navbar = () =>
       bg={ 'white' }
       position={ 'fixed' }
       zIndex={ 3 }
+      w={ 'full' }
     >
       <HStack spacing={ [ 1, 5 ] } w={ 'full' }>
         <Menu>
@@ -45,11 +46,11 @@ const Navbar = () =>
         </Box>
         <HStack spacing={ { base: 2, lg: 10, '2xl': '90px' } }>
           <Box display={ { base: 'none', md: 'block' } } alignItems={ 'center' }>
-            <Text _active={ { borderBottom: '1px', borderColor: 'brand.100', borderBottomWidth: '2px' } } fontWeight={ 'medium' } fontSize={ 18 }>Q & A’s Forums</Text>
+            <Text _active={ { borderBottom: '1px', borderColor: 'brand.100', borderBottomWidth: '2px' } } fontWeight={ 'medium' } fontSize={ 18 } color={'black'}>Q & A’s Forums</Text>
           </Box>
           <Box display={ [ 'none', 'flex' ] } alignItems={ 'center' }>
             <Menu>
-              <MenuButton as={ Text } fontWeight={ 'medium' } fontSize={ '18px' }>
+              <MenuButton as={ Text } fontWeight={ 'medium' } fontSize={ '18px' } color={'black'}>
                 Kategori <ChevronDownIcon />
               </MenuButton>
               <MenuList>
@@ -67,7 +68,7 @@ const Navbar = () =>
                 pointerEvents="none"
                 children={ <SearchIcon color={ 'brand.200' } /> }
               />
-              <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] } placeholder="Search..." />
+              <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] } placeholder="Search..." borderColor={'gray.400'} _placeholder={{ color: 'gray.400' }} color={'black'} />
             </InputGroup>
           </Box>
           <Link to={`/create-thread`}>
@@ -85,7 +86,7 @@ const Navbar = () =>
             </Button>
           </Link>
           <Box >
-            { IsLogin ? ( <Profile /> ) : ( <ModalLogin /> ) }
+            { userData.name ? ( <Profile imageUrl={userData.imageUrl} /> ) : ( <ModalLogin /> ) }
           </Box>
         </HStack>
       </HStack>
