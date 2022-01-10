@@ -9,14 +9,14 @@ const ModalLogin = () =>
     const { isOpen, onOpen, onClose } = useDisclosure()
     return (
         <>
-            <Text onClick={ onOpen } size='xl'>Masuk</Text>
+            <Text onClick={ onOpen } size='xl' color={'black'}>Masuk</Text>
             <Modal isOpen={ isOpen } size={ '2xl' } onClose={ onClose }>
                 <ModalOverlay />
-                <ModalContent>
-                    <ModalCloseButton />
+                <ModalContent bgColor={'white'}>
+                    <ModalCloseButton color={'black'} />
                     <ModalBody>
                         <Tabs>
-                            <TabList>
+                            <TabList color={'black'}>
                                 <Tab>Login</Tab>
                                 <Tab>Sign Up</Tab>
                             </TabList>
@@ -25,12 +25,12 @@ const ModalLogin = () =>
                                     <Box display={ 'flex' } flexDirection={ [ 'column', 'row' ] }>
                                         <Box >
                                             <FormControl>
-                                                <FormLabel htmlFor='username'>Username</FormLabel>
-                                                <Input id='username' type='text' />
+                                                <FormLabel htmlFor='username' color={'black'}>Username</FormLabel>
+                                                <Input id='username' type='text' color={'black'} outlineColor={'gray.200'} />
                                             </FormControl>
                                             <FormControl>
-                                                <FormLabel htmlFor='Password'>Password</FormLabel>
-                                                <Input id='Password' type='text' />
+                                                <FormLabel htmlFor='Password' color={'black'}>Password</FormLabel>
+                                                <Input id='Password' type='password' color={'black'} outlineColor={'gray.200'} />
                                             </FormControl>
                                             <Button size={ 'sm' } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
                                             <Box display={ 'flex' } mt={ 4 } justifyContent={ 'space-around' }>
@@ -51,16 +51,16 @@ const ModalLogin = () =>
                                     <Box display={ 'flex' } flexDirection={ [ 'column', 'row' ] }>
                                         <Box>
                                             <FormControl>
-                                                <FormLabel fontWeight={ 'normal' } fontSize={ '16px' } htmlFor='email'>Email address</FormLabel>
-                                                <Input id='email' type='email' />
+                                                <FormLabel fontWeight={ 'normal' } fontSize={ '16px' } htmlFor='email' color={'black'}>Email address</FormLabel>
+                                                <Input id='email' type='email' color={'black'} outlineColor={'gray.400'} />
                                             </FormControl>
                                             <FormControl>
-                                                <FormLabel htmlFor='username'>Username</FormLabel>
-                                                <Input id='username' type='text' />
+                                                <FormLabel htmlFor='username' color={'black'}>Username</FormLabel>
+                                                <Input id='username' type='text' outlineColor={'gray.400'} />
                                             </FormControl>
                                             <FormControl>
-                                                <FormLabel htmlFor='Password'>Password</FormLabel>
-                                                <Input id='Password' type='text' />
+                                                <FormLabel htmlFor='Password' color={'black'}>Password</FormLabel>
+                                                <Input id='Password' type='text' outlineColor={'gray.400'}/>
                                             </FormControl>
                                             <Button size={ 'sm' } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
                                             <Box display={ 'flex' } mt={ 4 } justifyContent={ 'space-around' }>
@@ -81,10 +81,10 @@ const ModalLogin = () =>
                         </Tabs>
                     </ModalBody>
                     <ModalFooter>
-                        <Button colorScheme='blue' size={ 'sm' } mr={ 3 } onClick={ onClose }>
+                        {/* <Button colorScheme='blue' size={ 'sm' } mr={ 3 } onClick={ onClose }>
                             Close
-                        </Button>
-                        <Button variant='ghost' size={ 'sm' }>Secondary Action</Button>
+                        </Button> */}
+                        {/* <Button variant='ghost' size={ 'sm' }>Secondary Action</Button> */}
                     </ModalFooter>
                 </ModalContent>
             </Modal>

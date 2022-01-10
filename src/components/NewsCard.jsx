@@ -5,7 +5,7 @@ import laNews from '../assets/img/news.png'
 const NewsCard = () =>
 {
     return (
-        <Box w={ [ '190px', '208px' ] } p={ 5 } shadow={ 'lg' } borderRadius={ '25px' }>
+        <Box w={ [ '190px', '208px' ] } p={ 5 } shadow={ 'lg' } borderRadius={ '25px' } color={'black'}>
             <Box mb={ 3 }>
                 <Image src={ laNews } />
             </Box>

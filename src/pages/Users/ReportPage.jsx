@@ -7,7 +7,7 @@ import NavBotom from '../../components/NavBotom'
 const ReportPage = () =>
 {
     return (
-        <Flex direction={'column'}>
+        <Flex direction={'column'} bgColor={'white'}>
             <Navbar />
             <NavBotom />
             <Container centerContent h={ '100vh' }>
@@ -26,20 +26,20 @@ const ReportPage = () =>
                         w={ [ '340', '530px' ] }
                         maxW="2xl"
                     >
-                        <Box p={ 6 }>
+                        <Box p={ 6 } color={'black'}>
                             <Center>
                                 <Heading>Laporkan</Heading>
                             </Center>
                             <VStack spacing={ 5 } mt={ 10 }>
                                 <FormControl>
                                     <FormLabel htmlFor='masalah'>Tulis alasan anda ingin melaporkan postingan !</FormLabel>
-                                    <Input type='text' id='masalah' />
+                                    <Input type='text' id='masalah' outlineColor={'gray.400'}/>
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor='daftarmasalah'>Pilih Masalah</FormLabel>
-                                    <Select id='daftarmasalah' placeholder='Pilih Masalah'>
-                                        <option>United Arab Emirates</option>
-                                        <option>Nigeria</option>
+                                    <Select id='daftarmasalah' placeholder='Pilih Masalah' outlineColor={'gray.400'}>
+                                        <option>Mengandung SARA</option>
+                                        <option>Pencemaran Nama Baik</option>
                                     </Select>
                                 </FormControl>
                                 <Button variant={ 'solid' } colorScheme={ 'purple' } w={ 'full' }>Submit</Button>

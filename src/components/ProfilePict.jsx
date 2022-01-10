@@ -11,6 +11,7 @@ const ProfilePict = ( { Profile, Top, Mb, left } ) =>
             borderRadius='full'
             position='absolute'
             mb={ Mb }
+            w={200}
         />
     )
 }

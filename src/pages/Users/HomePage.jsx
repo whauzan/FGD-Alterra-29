@@ -8,12 +8,12 @@ import PostinganThread from '../../components/PostinganThread'
 const HomePage = () =>
 {
     return (
-        <Flex direction={"column"}>
+        <Flex direction={"column"} bgColor={'white'}>
             <Navbar />
             <NavBotom />
             <Flex justifyContent={ 'center' } direction={ { base: 'column-reverse', md: 'column-reverse', lg: 'row' } } p={ [ 5, 0 ] } mb={ 20 }>
                 <Box w={ '200px' } display={ { base: 'none', xl: 'flex' } } mt={ 20 }>
-                    <Box position={ 'fixed' }>
+                    <Box position={ 'fixed' } color={'black'}>
                         <VStack spacing={ 10 }>
                             <Link>Home</Link>
                             <Link>Rekomendasi</Link>
@@ -23,7 +23,7 @@ const HomePage = () =>
                 </Box>
                 <PostinganThread profile={ profile } />
                 <Box mt={ [ 10, 20 ] } w={ [ '350px', '200px' ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } }>
-                    <Text>Recent News</Text>
+                    <Text color={'black'}>Recent News</Text>
                     <Box display={ 'flex' } flexDirection={ [ 'row', 'column' ] } mb={ 5 }>
                         <NewsCard />
                     </Box>

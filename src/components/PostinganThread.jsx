@@ -19,7 +19,7 @@ const PostinganThread = ( { profile } ) =>
 
 
     return (
-        <Box w={ [ '350px', '700px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } }>
+        <Box w={ [ '350px', '700px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } color={'black'}>
             <Box display={ 'flex' } >
                 <Box display={ 'flex' }>
                     <Link to={`/user/id`}>
@@ -95,7 +95,7 @@ const FormBalas = ( { tagClick, children } ) =>
                 <Image src={ profile } borderRadius={ 'full' } w={ '50px' } mb={ 5 } />
                 <Box ml={ 2 }>
                     <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                    <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } />
+                    <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } _placeholder={{ color: 'gray.400' }} />
                     <Divider />
                     <HStack mt={ 2 }>
                         <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
