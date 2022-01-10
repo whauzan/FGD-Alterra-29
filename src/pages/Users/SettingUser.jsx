@@ -7,7 +7,7 @@ import Navbar from '../../components/Navbar'
 import NavBotom from '../../components/NavBotom'
 import { useNavigate } from 'react-router-dom';
 
-const SettingUsers = () =>
+const SettingUser = () =>
 {
     const userData = useSelector((state) => state.user.users);
     const navigate = useNavigate();
@@ -90,4 +90,4 @@ const SettingUsers = () =>
     )
 }
 
-export default SettingUsers
+export default SettingUser
