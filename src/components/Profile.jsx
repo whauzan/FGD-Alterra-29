@@ -1,19 +1,33 @@
 import { Avatar, Menu, MenuButton, MenuItem, MenuList } from '@chakra-ui/react'
 import React from 'react'
-import profiles from '../assets/img/Rectangle 42.png'
-const Profile = () =>
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+import { GoogleLogout } from 'react-google-login'
+import { deleteInfo } from '../Redux/sliceUser'
+
+const Profile = ({ imageUrl }) =>
 {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const handleLogOut = () => {
+        dispatch(deleteInfo());
+        navigate('/');
+    }
     return (
         <Menu>
             <MenuButton fontWeight={ 'medium' } fontSize={ '18px' }>
-                <Avatar src={ profiles } />
+                <Avatar src={ imageUrl } />
             </MenuButton>
             <MenuList>
-                <MenuItem>Download</MenuItem>
-                <MenuItem>Create a Copy</MenuItem>
-                <MenuItem>Mark as Draft</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Attend a Workshop</MenuItem>
+                <Link to={`/my-profile`}>
+                    <MenuItem>My Profile</MenuItem>
+                </Link>
+                <GoogleLogout
+                    clientId="56717403242-0s803ihkiah87e85iloeqpua28qmoslh.apps.googleusercontent.com"
+                    render={ renderProps => (
+                        <MenuItem onClick={handleLogOut}>Log Out</MenuItem>
+                    )}
+                />
             </MenuList>
         </Menu>
     )
