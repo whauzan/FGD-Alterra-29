@@ -29,6 +29,7 @@ const SosmedLogin = () =>
                         <Icon as={ FcGoogle } mr={ 3 } />
                         Google</Button>
                 ) }
+                onSuccess={ responseGoogle }
             />
             <FacebookLogin
                 appId="629431818422391"
