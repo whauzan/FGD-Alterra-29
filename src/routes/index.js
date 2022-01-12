@@ -1,8 +1,8 @@
 import React from "react";
 import { Route, Routes, BrowserRouter as Router } from "react-router-dom";
 import { persistor, store } from "../Redux/store.js";
-import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 import Overview from "../pages/Admin/Overview";
 import Report from "../pages/Admin/Report";
 import SettingUsers from "../pages/Admin/SettingUsers";
@@ -15,6 +15,7 @@ import Post from "../pages/Admin/Post";
 import CreateThread from "../pages/Users/CreateThread.jsx";
 import UsersProfile from "../pages/Users/UsersProfile.jsx";
 import SettingUser from "../pages/Users/SettingUser.jsx";
+import ProtectingRoute from "./ProtectingRoute.js";
 const Routers = () => {
   return (
     <Provider store={store}>
@@ -26,8 +27,22 @@ const Routers = () => {
             <Route path='/hot-thread' element={<HomePage />} />
             <Route path='/user/id' element={<ProfileFriends />} />
             <Route path='/report/id' element={<ReportPage />} />
-            <Route path='/create-thread' element={<CreateThread />} />
-            <Route path='/my-profile' element={<UsersProfile />} />
+            <Route
+              path='/create-thread'
+              element={
+                <ProtectingRoute>
+                  <CreateThread />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/my-profile'
+              element={
+                <ProtectingRoute>
+                  <UsersProfile />
+                </ProtectingRoute>
+              }
+            />
             <Route path='/my-profile/setting' element={<SettingUser />} />
             <Route path='/admin/overview' element={<Overview />} />
             <Route path='/admin/users' element={<Users />} />
