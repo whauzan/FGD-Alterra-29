@@ -12,13 +12,15 @@ import Profile from "../../assets/img/Rectangle 42.png";
 import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import NavBotom from '../../components/NavBotom';
+import { useSelector } from 'react-redux';
 
 
 const ProfileFriends = () =>
 {
+    const userData = useSelector( ( state ) => state.user.users );
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-        <Flex direction={"column"}>
+        <Flex direction={ "column" }>
             <Navbar />
             <NavBotom />
             <Container centerContent h={ '100vh' }>
@@ -33,7 +35,7 @@ const ProfileFriends = () =>
                                     tagName={ "Newbiers" }
                                     bio={ "Kang Ngarang" }
                                 />
-                                <HStack>
+                                <HStack display={ userData.name ? 'flex' : 'none' }>
                                     <ButtonProfiles messages={ "Follow" } />
                                     <ButtonProfiles messages={ "Messages" } />
                                 </HStack>
@@ -70,7 +72,7 @@ const ProfileFriends = () =>
                                     />
                                 </Box>
                                 <Center>
-                                    <HStack spacing={ 2 }>
+                                    <HStack spacing={ 2 } display={ userData.name ? 'flex' : 'none' }>
                                         <ButtonProfiles messages={ "Follow" } />
                                         <ButtonProfiles messages={ "Messages" } />
                                     </HStack>

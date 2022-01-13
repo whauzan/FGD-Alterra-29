@@ -1,12 +1,12 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Avatar, Box, Divider, Flex, HStack, Icon, Image, Input, Menu, MenuButton, MenuItem, MenuList, Spacer, Text, } from '@chakra-ui/react'
+import { Box, Divider, HStack, Icon, Image, Input, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { FaCommentAlt, FaShareAlt } from 'react-icons/fa'
 import { MdRecommend } from 'react-icons/md'
 import cover from '../assets/img/629527.jpg'
 import profile from '../assets/img/Rectangle 42.png'
-import { FaCommentAlt, FaShareAlt } from "react-icons/fa";
-import { Link } from 'react-router-dom'
-const PostinganThread = ( { profile } ) =>
+
+const Detailtread = () =>
 {
     const [ inputList, setInputList ] = useState( [] );
     const [ komenOpen, setKomenOpen ] = useState( false )
@@ -14,10 +14,8 @@ const PostinganThread = ( { profile } ) =>
     {
         setInputList( inputList.concat( <FormBalas tagClick={ OnaddBtn } key={ inputList.length }></FormBalas> ) );
     };
-
-
     return (
-        <Box w={ [ '350px', '700px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } color={ 'black' }>
+        <Box w={ [ '350px', '700px', '800px', '900px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } color={ 'black' }>
             <Box display={ 'flex' } >
                 <Box display={ 'flex' }>
                     <Link to={ `/user/id` }>
@@ -47,9 +45,9 @@ const PostinganThread = ( { profile } ) =>
             </Box>
             <Box mt={ 5 }>
                 <Text fontSize={ '36' } fontWeight={ 'semibold' }>
-                    <Link to={ '/detail-thread' }>Apakah Hitler lahir di bogor ? Kuak misterinya disini dan dari sumber yang terpercaya</Link>
+                    Apakah Hitler lahir di bogor ? Kuak misterinya disini dan dari sumber yang terpercaya
                 </Text>
-                <Box w={ [ '350px', '650px' ] }>
+                <Box w={ [ '350px', '700px', '800px', '850px' ] }>
                     <Image src={ cover } />
                     <Text textAlign={ 'justify' }>
                         Lorem, ipsum dolor sit amet consectetur adipisicing elit. Exercitationem adipisci nemo doloremque animi quaerat aut expedita molestias quas asperiores nobis, quia, perferendis dolorum! Quia hic ad tempora. Et, consequuntur perferendis?
@@ -71,9 +69,9 @@ const PostinganThread = ( { profile } ) =>
             </Box>
             <Box>
                 <Box display={ komenOpen ? 'flex' : 'none' } flexDirection={ 'column' } mt={ 10 }>
-                    <Komentar tagClick={ OnaddBtn }>
+                    <FormBalas tagClick={ OnaddBtn }>
                         { inputList }
-                    </Komentar>
+                    </FormBalas>
                 </Box>
                 <Divider mt={ 10 } orientation='horizontal' />
             </Box>
@@ -81,62 +79,24 @@ const PostinganThread = ( { profile } ) =>
     )
 }
 
-export default PostinganThread
-
-
+export default Detailtread
 
 const FormBalas = ( { tagClick, children } ) =>
 {
     return (
         <>
             <Box display={ 'flex' } mt={ 3 }>
-                <Avatar src={ profile } mb={ 5 } />
+                <Image src={ profile } borderRadius={ 'full' } w={ '50px' } mb={ 5 } />
                 <Box ml={ 2 }>
-                    <Box flexDirection={ 'row' } display={ 'flex' }>
-                        <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                    </Box>
-                    <Input type={ 'text' } variant={ 'flushed' } size={ 'sm' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' _placeholder={ { color: 'gray.400' } } />
+                    <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
+                    <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } _placeholder={ { color: 'gray.400' } } />
                     <Divider />
-                </Box>
-            </Box >
-            <Box ml={ '60px' } w={ [ '300px', '540px' ] }>
-                { children }
-            </Box>
-        </>
-    )
-}
-
-const Komentar = ( { tagClick, children } ) =>
-{
-    return (
-        <>
-            <Box display={ 'flex' } mt={ 3 }>
-                <Avatar src={ profile } mb={ 5 } />
-                <Box ml={ 2 }>
-                    <Box flexDirection={ 'row' } display={ 'flex' }>
-                        <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                        <Spacer />
-                        <Flex ml={ '26.5em' }>
-                            <Menu isLazy>
-                                <MenuButton>. . .</MenuButton>
-                                <MenuList>
-                                    {/* MenuItems are not rendered unless Menu is open */ }
-                                    <MenuItem>New Window</MenuItem>
-                                    <MenuItem>Open Closed Tab</MenuItem>
-                                    <MenuItem>Open File</MenuItem>
-                                </MenuList>
-                            </Menu>
-                        </Flex>
-                    </Box>
-                    <Text textAlign={ 'justify' } w={ '35em' }>
-                        Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil eum repellendus exercitationem commodi praesentium quibusdam dolores blanditiis recusandae ullam vel nostrum pariatur veritatis at, eius odit voluptate alias nesciunt natus.
-                    </Text>
                     <HStack mt={ 2 }>
                         <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
                         <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
                     </HStack>
                 </Box>
-            </Box >
+            </Box>
             <Box ml={ '60px' } w={ [ '300px', '540px' ] }>
                 { children }
             </Box>
