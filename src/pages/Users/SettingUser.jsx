@@ -10,10 +10,8 @@ import { useNavigate } from 'react-router-dom';
 const SettingUser = () =>
 {
     const userData = useSelector((state) => state.user.users);
-    const navigate = useNavigate();
     return (
         <>
-        {userData?.name ? 
         <Flex direction={ 'column' } bgColor={'white'} color={'black'}>
             <Navbar />
             <NavBotom />
@@ -83,9 +81,6 @@ const SettingUser = () =>
             </Container >
             <Footer />
         </Flex >
-        :
-        navigate('/')
-        }
         </>
     )
 }

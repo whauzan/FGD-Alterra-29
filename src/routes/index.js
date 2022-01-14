@@ -43,7 +43,14 @@ const Routers = () => {
                 </ProtectingRoute>
               }
             />
-            <Route path='/my-profile/setting' element={<SettingUser />} />
+            <Route 
+              path='/my-profile/setting'
+              element={
+                <ProtectingRoute>
+                  <SettingUser />
+                </ProtectingRoute>
+              }
+            />
             <Route path='/admin/overview' element={<Overview />} />
             <Route path='/admin/users' element={<Users />} />
             <Route path='/admin/post' element={<Post />} />
