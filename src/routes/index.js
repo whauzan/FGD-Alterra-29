@@ -16,6 +16,7 @@ import CreateThread from "../pages/Users/CreateThread.jsx";
 import UsersProfile from "../pages/Users/UsersProfile.jsx";
 import SettingUser from "../pages/Users/SettingUser.jsx";
 import ProtectingRoute from "./ProtectingRoute.js";
+import DetailThread from "../pages/Users/DetailThread.jsx";
 const Routers = () => {
   return (
     <Provider store={store}>
@@ -57,6 +58,7 @@ const Routers = () => {
             <Route path='/admin/thread' element={<Thread />} />
             <Route path='/admin/report' element={<Report />} />
             <Route path='/admin/setting' element={<SettingUsers />} />
+            <Route path='/detail-thread' element={<DetailThread />} />
           </Routes>
         </Router>
       </PersistGate>

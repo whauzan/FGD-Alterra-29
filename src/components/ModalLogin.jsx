@@ -1,13 +1,32 @@
 import { Box, Button, Divider, FormControl, FormLabel, Icon, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react'
-import React from 'react'
+import React, { useState } from 'react'
 import logoLogin from '../assets/img/imglogin.png'
 import SosmedLogin from './SosmedLogin'
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { Axios } from '../helpers/axios';
 
 const ModalLogin = () =>
 {
     const [ show, setShow ] = React.useState( false )
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [ username, setUsername ] = useState( '' )
+    const [ password, setPassword ] = useState( '' )
+    const [ email, setEmail ] = useState( '' )
+
+    const onClickRegister = () =>
+    {
+        const data = {
+            name: username, password, email
+        }
+        Axios.post( '/register', { data } )
+            .then( ( resp ) =>
+            {
+                console.log( 'sukses' );
+                console.log( resp );
+            } )
+            .catch( error => console.log( error ) )
+    }
+
     return (
         <>
             <Text onClick={ onOpen } size='xl' color={ 'black' }>Masuk</Text>
@@ -34,6 +53,7 @@ const ModalLogin = () =>
                                                 <InputGroup size='md'>
                                                     <Input
                                                         pr='4.5rem'
+                                                        value={ ( e ) => setPassword( e.target.value ) }
                                                         type={ show ? 'text' : 'password' }
                                                         placeholder='Enter password'
                                                     />
@@ -64,17 +84,17 @@ const ModalLogin = () =>
                                         <Box>
                                             <FormControl>
                                                 <FormLabel fontWeight={ 'normal' } fontSize={ '16px' } htmlFor='email' color={ 'black' }>Email address</FormLabel>
-                                                <Input id='email' type='email' color={ 'black' } outlineColor={ 'gray.400' } />
+                                                <Input id='email' value={ email } onChange={ ( e ) => setEmail( e.target.value ) } type='email' color={ 'black' } outlineColor={ 'gray.400' } />
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel htmlFor='username' color={ 'black' }>Username</FormLabel>
-                                                <Input id='username' type='text' outlineColor={ 'gray.400' } />
+                                                <Input id='username' value={ username } onChange={ ( e ) => setUsername( e.target.value ) } type='text' outlineColor={ 'gray.400' } />
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel htmlFor='Password' color={ 'black' }>Password</FormLabel>
-                                                <Input id='Password' type='text' outlineColor={ 'gray.400' } />
+                                                <Input id='Password' value={ password } onChange={ ( e ) => setPassword( e.target.value ) } type='password' outlineColor={ 'gray.400' } />
                                             </FormControl>
-                                            <Button size={ 'sm' } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
+                                            <Button size={ 'sm' } onClick={ onClickRegister } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
                                             <Box display={ 'flex' } mt={ 4 } justifyContent={ 'space-around' }>
                                                 <Divider orientation='horizontal' w={ 20 } mt={ 2 } />
                                                 <Text fontWeight={ 'normal' } fontSize={ '12' } color={ 'brand.100' }>Atau</Text>
