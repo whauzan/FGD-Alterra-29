@@ -7,7 +7,7 @@ const Koneksi = () =>
     return (
         <Box>
             { Mobile ? (
-                <Text fontSize={ 13 } fontWeight={ 'medium' }>Koneksi</Text>
+                <Text fontSize={ 13 } color={ 'black' } fontWeight={ 'medium' }>Koneksi</Text>
             ) :
                 (
                     <Center>

@@ -1,5 +1,5 @@
 import { Box, Button, Divider, FormControl, FormLabel, Icon, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import logoLogin from '../assets/img/imglogin.png'
 import SosmedLogin from './SosmedLogin'
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
@@ -13,7 +13,7 @@ const ModalLogin = () =>
     const [ password, setPassword ] = useState( '' )
     const [ email, setEmail ] = useState( '' )
 
-    const onClickRegister = () =>
+    const Register = () =>
     {
         const data = {
             name: username, password, email
@@ -26,6 +26,30 @@ const ModalLogin = () =>
             } )
             .catch( error => console.log( error ) )
     }
+
+    const Login = () =>
+    {
+        const data = {
+            email,
+            password,
+        }
+        Axios.post( '/login', { data } )
+            .then( ( respons ) =>
+            {
+                console.log( respons.data );
+            } )
+            .catch( ( error ) => console.log( error ) )
+    }
+
+
+    useEffect( () =>
+    {
+        Axios.get( '/hotthread' ).then( ( resp ) =>
+        {
+            console.log( 'hottrid sukses' );
+            console.log( resp.data );
+        } ).catch( ( error ) => console.log( error ) )
+    }, [] )
 
     return (
         <>
@@ -46,16 +70,17 @@ const ModalLogin = () =>
                                         <Box >
                                             <FormControl>
                                                 <FormLabel htmlFor='usernames' color={ 'black' }>Username</FormLabel>
-                                                <Input id='usernames' type='text' color={ 'black' } outlineColor={ 'gray.200' } />
+                                                <Input id='usernames' type='text' value={ email } onChange={ ( e ) => setEmail( e.target.value ) } color={ 'black' } outlineColor={ 'gray.200' } />
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel htmlFor='Password'>Password</FormLabel>
                                                 <InputGroup size='md'>
                                                     <Input
                                                         pr='4.5rem'
-                                                        value={ ( e ) => setPassword( e.target.value ) }
                                                         type={ show ? 'text' : 'password' }
                                                         placeholder='Enter password'
+                                                        value={ password }
+                                                        onChange={ ( e ) => setPassword( e.target.value ) }
                                                     />
                                                     <InputRightElement width='4.5rem'>
                                                         <Button h='1.75rem' size='sm' variant={ 'ghost' } onClick={ () => setShow( !show ) }>
@@ -64,7 +89,7 @@ const ModalLogin = () =>
                                                     </InputRightElement>
                                                 </InputGroup>
                                             </FormControl>
-                                            <Button size={ 'sm' } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
+                                            <Button size={ 'sm' } mt={ 4 } w={ 'full' } onClick={ Login } colorScheme={ 'purple' }>SUBMIT</Button>
                                             <Box display={ 'flex' } mt={ 4 } justifyContent={ 'space-around' }>
                                                 <Divider orientation='horizontal' w={ 20 } mt={ 2 } />
                                                 <Text fontWeight={ 'normal' } fontSize={ '12' } color={ 'brand.100' }>Atau</Text>
@@ -94,7 +119,7 @@ const ModalLogin = () =>
                                                 <FormLabel htmlFor='Password' color={ 'black' }>Password</FormLabel>
                                                 <Input id='Password' value={ password } onChange={ ( e ) => setPassword( e.target.value ) } type='password' outlineColor={ 'gray.400' } />
                                             </FormControl>
-                                            <Button size={ 'sm' } onClick={ onClickRegister } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
+                                            <Button size={ 'sm' } onClick={ Register } mt={ 4 } w={ 'full' } colorScheme={ 'purple' }>SUBMIT</Button>
                                             <Box display={ 'flex' } mt={ 4 } justifyContent={ 'space-around' }>
                                                 <Divider orientation='horizontal' w={ 20 } mt={ 2 } />
                                                 <Text fontWeight={ 'normal' } fontSize={ '12' } color={ 'brand.100' }>Atau</Text>
