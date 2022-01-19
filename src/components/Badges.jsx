@@ -1,10 +1,9 @@
-import { PhoneIcon } from '@chakra-ui/icons';
-import { Tooltip } from '@chakra-ui/react';
+
 import { Box, Center, Divider, Text, useMediaQuery, VStack } from '@chakra-ui/react'
 import React from 'react'
 import AktifDi from './AktifDi'
 
-const Badges = () =>
+const Badges = ( { badges, data } ) =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
@@ -17,17 +16,13 @@ const Badges = () =>
                 }
                 <Box mt={ 10 }>
                     <Box display={ 'flex' } justifyContent={ 'space-between' }>
-                        <Tooltip mt={ 20 } hasArrow label='Suka Mencari' bg='gray.300' color='black'>
-                            <PhoneIcon fontSize={ '30px' } />
-                        </Tooltip>
-                        <Tooltip hasArrow label='Suka Telpon' bg='gray.300' color='black'>
-                            <PhoneIcon fontSize={ '30px' } color={ 'red.600' } />
-                        </Tooltip>
+                        { badges }
                     </Box>
                 </Box>
             </Box >
             <Divider mt={ 5 } mb={ 5 } orientation='horizontal' />
-            <AktifDi />
+            { data.map( ( item, index ) =>
+                <AktifDi keys={ index } aktif={ item.category } /> ) }
         </VStack >
     )
 }

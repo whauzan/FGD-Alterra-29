@@ -1,4 +1,4 @@
-import { Box, Center, Container, Flex, HStack, useMediaQuery, VStack } from '@chakra-ui/react';
+import { Box, Center, Container, Flex, HStack, Text, useMediaQuery, VStack } from '@chakra-ui/react';
 import React from 'react'
 import Achievement from '../../components/Achievement';
 import ButtonProfiles from '../../components/ButtonProfiles';
@@ -15,6 +15,7 @@ import { Link } from 'react-router-dom';
 import { Axios } from '../../helpers/axios';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Badges from '../../components/Badges';
 
 const UsersProfile = () =>
 {
@@ -23,6 +24,7 @@ const UsersProfile = () =>
     const [ data, setData ] = useState( [] )
     const [ isLoading, setIsLoading ] = useState( true )
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const getUserData = async () =>
     {
         await Axios( `/profile/${ userData.userID }`, {
@@ -39,8 +41,14 @@ const UsersProfile = () =>
     useEffect( () =>
     {
         getUserData()
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [] )
+    }, [ getUserData ] )
+
+
+    if ( isLoading )
+    {
+        return "Loading"
+    }
+
     return (
         <>
             <Flex direction={ "column" } bgColor={ 'white' } color={ 'black' }>
@@ -74,7 +82,9 @@ const UsersProfile = () =>
                                                     }
                                                 </Box>
                                             </HStack>
-                                            {/* { isLoading ? <Badges iconbadges={ "Icon" } data={ data?.active_on_category } title={ "Suka cerita" } /> : "kosong" } */ }
+                                            <Box>
+                                                { isLoading ? <Badges badges={ data.badge_list } data={ data?.active_on_category } /> : <Text>Data kosong</Text> }
+                                            </Box>
                                         </HStack>
                                     </Flex>
                                 </VStack>

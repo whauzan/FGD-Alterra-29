@@ -1,7 +1,7 @@
 import { Box, Center, HStack, Stack, Text, useMediaQuery } from '@chakra-ui/react'
 import React from 'react'
 
-const AktifDi = () =>
+const AktifDi = ( { keys, aktif } ) =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
@@ -18,11 +18,8 @@ const AktifDi = () =>
             <HStack spacing={ 5 }>
                 <Box mt={ 5 }>
                     <Stack spacing={ Mobile ? { md: 3, lg: 10 } : 20 } direction={ Mobile ? 'column' : 'row' } fontSize={ 13 } fontWeight={ 'medium' }>
-                        <Box >
-                            <Text>Mitos</Text>
-                        </Box>
-                        <Box>
-                            <Text>Musik</Text>
+                        <Box key={ keys } >
+                            <Text>{ aktif }</Text>
                         </Box>
                     </Stack>
                 </Box>
