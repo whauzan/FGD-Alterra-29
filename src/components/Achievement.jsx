@@ -2,7 +2,7 @@ import { Box, Center, Divider, HStack, Text, useMediaQuery, VStack } from '@chak
 import React from 'react'
 import Koneksi from './Koneksi'
 
-const Achievement = ( { post, thread } ) =>
+const Achievement = ( { post, thread, follower, Followings } ) =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
@@ -37,7 +37,7 @@ const Achievement = ( { post, thread } ) =>
                 </VStack>
             </Box >
             <Divider mt={ 5 } mb={ 5 } orientation='horizontal' />
-            <Koneksi />
+            <Koneksi Followers={ follower } Following={ Followings } />
         </VStack >
     )
 }

@@ -4,7 +4,7 @@ import Post from './Post'
 
 import Thread from './Thread'
 
-const Konten = ( { kiri, kanan } ) =>
+const Konten = ( { kiri, kanan, data } ) =>
 {
     return (
         <Tabs mb={ 40 } >
@@ -14,10 +14,16 @@ const Konten = ( { kiri, kanan } ) =>
             </TabList>
             <TabPanels>
                 <TabPanel>
-                    <Post />
+                    { data.map( item =>
+                        <Post key={ item.thread_id } title={ item.title } replier={ item.recent_replier } comment={ item.recent_comment } />
+                    )
+                    }
                 </TabPanel>
                 <TabPanel>
-                    <Thread />
+                    { data.map( item =>
+                        <Thread key={ item.thread_id } title={ item.title } />
+                    )
+                    }
                 </TabPanel>
             </TabPanels>
         </Tabs>

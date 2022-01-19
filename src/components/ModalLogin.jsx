@@ -1,9 +1,13 @@
 import { Box, Button, Divider, FormControl, FormLabel, Icon, Image, Input, InputGroup, InputRightElement, Modal, ModalBody, ModalCloseButton, ModalContent, ModalFooter, ModalOverlay, Tab, TabList, TabPanel, TabPanels, Tabs, Text, useDisclosure } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import logoLogin from '../assets/img/imglogin.png'
 import SosmedLogin from './SosmedLogin'
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { Axios } from '../helpers/axios';
+import { useDispatch } from 'react-redux';
+import jwt_decode from "jwt-decode";
+import { saveInfo } from '../Redux/sliceUser';
+
 
 const ModalLogin = () =>
 {
@@ -11,45 +15,68 @@ const ModalLogin = () =>
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [ username, setUsername ] = useState( '' )
     const [ password, setPassword ] = useState( '' )
+    const [ passwordLogin, setPasswordLogin ] = useState( '' )
     const [ email, setEmail ] = useState( '' )
+    const [ emailLogin, setEmailLogin ] = useState( '' )
+    const dispatch = useDispatch();
+    const [ errorData, setErrorData ] = useState( {
+        username: '',
+        email: '',
+        password: ''
+    } )
 
     const Register = () =>
     {
         const data = {
             name: username, password, email
         }
-        Axios.post( '/register', { data } )
+        Axios.post( '/register', data )
             .then( ( resp ) =>
             {
                 console.log( 'sukses' );
                 console.log( resp );
             } )
             .catch( error => console.log( error ) )
+        setEmail( '' )
+        setPassword( '' )
+        setUsername( '' )
     }
 
     const Login = () =>
     {
-        const data = {
-            email,
-            password,
+        let data
+        if ( emailLogin.length === '' && passwordLogin === '' )
+        {
+            setErrorData( 'Username And Password Must Be Valid' )
+            console.log( errorData );
+        } else
+        {
+            data = {
+                email: emailLogin,
+                password: passwordLogin,
+            }
         }
-        Axios.post( '/login', { data } )
+        Axios.post( '/login', data )
             .then( ( respons ) =>
             {
-                console.log( respons.data );
+                const dataUser = respons.data.data
+                const token = respons.data.data.token
+                const jwtDecode = jwt_decode( token )
+                console.log( jwtDecode );
+                const data = {
+                    userID: jwtDecode.UserID,
+                    name: dataUser.name,
+                    imageUrl: null,
+                    email: dataUser.email,
+                    token: token
+                }
+                dispatch( saveInfo( data ) )
             } )
             .catch( ( error ) => console.log( error ) )
+        setPasswordLogin( '' )
+        setEmailLogin( '' )
     }
 
-
-    useEffect( () =>
-    {
-        Axios.get( '/hotthread' ).then( ( resp ) =>
-        {
-            console.log( 'hottrid sukses' );
-            console.log( resp.data );
-        } ).catch( ( error ) => console.log( error ) )
-    }, [] )
 
     return (
         <>
@@ -68,9 +95,9 @@ const ModalLogin = () =>
                                 <TabPanel>
                                     <Box display={ 'flex' } flexDirection={ [ 'column', 'row' ] }>
                                         <Box >
-                                            <FormControl>
+                                            <FormControl isRequired>
                                                 <FormLabel htmlFor='usernames' color={ 'black' }>Username</FormLabel>
-                                                <Input id='usernames' type='text' value={ email } onChange={ ( e ) => setEmail( e.target.value ) } color={ 'black' } outlineColor={ 'gray.200' } />
+                                                <Input id='usernames' type='text' value={ emailLogin } onChange={ ( e ) => setEmailLogin( e.target.value ) } color={ 'black' } outlineColor={ 'gray.200' } />
                                             </FormControl>
                                             <FormControl>
                                                 <FormLabel htmlFor='Password'>Password</FormLabel>
@@ -79,8 +106,8 @@ const ModalLogin = () =>
                                                         pr='4.5rem'
                                                         type={ show ? 'text' : 'password' }
                                                         placeholder='Enter password'
-                                                        value={ password }
-                                                        onChange={ ( e ) => setPassword( e.target.value ) }
+                                                        value={ passwordLogin }
+                                                        onChange={ ( e ) => setPasswordLogin( e.target.value ) }
                                                     />
                                                     <InputRightElement width='4.5rem'>
                                                         <Button h='1.75rem' size='sm' variant={ 'ghost' } onClick={ () => setShow( !show ) }>

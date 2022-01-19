@@ -1,7 +1,6 @@
 import { Box, Center, Container, Flex, HStack, useMediaQuery, VStack } from '@chakra-ui/react';
 import React from 'react'
 import Achievement from '../../components/Achievement';
-import Badges from '../../components/Badges';
 import ButtonProfiles from '../../components/ButtonProfiles';
 import CoverImage from '../../components/CoverImage';
 import Konten from '../../components/Konten';
@@ -13,11 +12,35 @@ import Navbar from '../../components/Navbar';
 import NavBotom from '../../components/NavBotom';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Axios } from '../../helpers/axios';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
 const UsersProfile = () =>
 {
+
     const userData = useSelector( ( state ) => state.user.users );
+    const [ data, setData ] = useState( [] )
+    const [ isLoading, setIsLoading ] = useState( true )
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
+    const getUserData = async () =>
+    {
+        await Axios( `/profile/${ userData.userID }`, {
+            headers: {
+                "Authorization": 'Bearer ' + userData.token
+            }
+        } ).then( ( resp ) =>
+        {
+            setData( resp.data.data )
+            setIsLoading( false )
+        } )
+            .catch( error => console.log( error ) )
+    }
+    useEffect( () =>
+    {
+        getUserData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] )
     return (
         <>
             <Flex direction={ "column" } bgColor={ 'white' } color={ 'black' }>
@@ -29,11 +52,10 @@ const UsersProfile = () =>
                         { Mobile ? (
                             <Flex direction={ "column" }>
                                 <HStack spacing={ { md: "3em", lg: "10em", xl: "13em" } }>
-                                    <ProfilePict Profile={ userData.imageUrl } Top={ 60 } />
+                                    <ProfilePict Profile={ data.photo_url } Top={ 60 } />
                                     <NameUsers
-                                        username={ userData.name }
-                                        tagName={ "Newbiers" }
-                                        bio={ "Kang Ngarang" }
+                                        username={ data.name }
+                                        bio={ data.bio }
                                     />
                                     <HStack>
                                         <Link to={ `/my-profile/setting` }>
@@ -44,13 +66,15 @@ const UsersProfile = () =>
                                 <VStack>
                                     <Flex mt={ { md: 20, lg: 8 } } direction={ "column" }>
                                         <HStack spacing={ { md: "2em", lg: "5em" } }>
-                                            <Achievement post={ 3 } thread={ 5 } />
+                                            <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } />
                                             <HStack>
                                                 <Box width={ { md: "20em", lg: "30em" } }>
-                                                    <Konten kiri={ "Post" } kanan={ "Thread" } />
+                                                    {
+                                                        isLoading ? <Konten data={ data?.thread_on_profile } kiri={ "Post" } kanan={ "Thread" } /> : "Data Kosong"
+                                                    }
                                                 </Box>
                                             </HStack>
-                                            <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
+                                            {/* { isLoading ? <Badges iconbadges={ "Icon" } data={ data?.active_on_category } title={ "Suka cerita" } /> : "kosong" } */ }
                                         </HStack>
                                     </Flex>
                                 </VStack>
@@ -68,8 +92,7 @@ const UsersProfile = () =>
                                     <Box align={ "center" } mb={ 5 }>
                                         <NameUsers
                                             username={ userData.name }
-                                            tagName={ "Newbiers" }
-                                            bio={ "Kang Ngarang" }
+                                            bio={ data.bio }
                                         />
                                     </Box>
                                     <Center>
@@ -80,9 +103,7 @@ const UsersProfile = () =>
                                         </HStack>
                                     </Center>
                                     <Achievement post={ 3 } thread={ 5 } />
-                                    <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
                                     <Center mt={ 5 }>
-                                        <Konten kiri={ "Post" } kanan={ "Thread" } />
                                     </Center>
                                 </Flex>
                             </VStack>

@@ -1,17 +1,19 @@
-import { Image } from '@chakra-ui/react'
+import
+{
+    Avatar
+} from '@chakra-ui/react'
 import React from 'react'
 
 const ProfilePict = ( { Profile, Top, Mb, left } ) =>
 {
     return (
-        <Image
+        <Avatar
             src={ Profile }
             top={ Top }
             ml={ left }
-            borderRadius='full'
             position='absolute'
             mb={ Mb }
-            w={200}
+            size={ '2xl' }
         />
     )
 }

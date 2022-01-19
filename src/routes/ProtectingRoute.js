@@ -8,6 +8,7 @@ const ProtectingRoute = (props) => {
   const history = useNavigate();
 
   const userData = useSelector((state) => state.user.users);
+
   useEffect(() => {
     if (!userData.name) {
       history("/");

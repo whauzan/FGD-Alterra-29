@@ -1,7 +1,7 @@
 import { Box, Center, HStack, Text, useMediaQuery, VStack } from '@chakra-ui/react'
 import React from 'react'
 
-const Koneksi = () =>
+const Koneksi = ( { Followers, Following } ) =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
@@ -19,10 +19,10 @@ const Koneksi = () =>
                 <Box mt={ 5 }>
                     <HStack spacing={ Mobile ? { md: 5, lg: 10, xl: 20 } : 40 } fontSize={ 25 }>
                         <Box >
-                            <Text >1</Text>
+                            <Text >{ Followers }</Text>
                         </Box>
                         <Box>
-                            <Text>2</Text>
+                            <Text>{ Following }</Text>
                         </Box>
                     </HStack>
                 </Box>
