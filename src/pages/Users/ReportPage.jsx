@@ -1,20 +1,57 @@
 import { Box, Button, Center, Container, Flex, FormControl, FormLabel, Heading, Input, Select, VStack } from '@chakra-ui/react'
 import React from 'react'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { useParams } from 'react-router-dom'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
 import NavBotom from '../../components/NavBotom'
+import { Axios } from '../../helpers/axios'
 
 const ReportPage = () =>
 {
+    const { id } = useParams()
+    const [ listReport, setlistReport ] = useState( [] );
+    const [ message, setMessage ] = useState( '' );
+    const [ reportCategory, setReportCategory ] = useState( '' );
+
+    const getReport = async () =>
+    {
+        await Axios.get( '/report-thread' )
+            .then( resp => setlistReport( resp.data.data ) )
+            .catch( err => console.log( err ) )
+    }
+
+    useEffect( () =>
+    {
+        getReport()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] );
+
+    console.log( id );
+
+    const createReport = () =>
+    {
+        const data = {
+            thread_id: id,
+            report_case_id: reportCategory,
+            message
+        }
+        console.log( data );
+        Axios.post( '/report-thread', data )
+            .then( resp => console.log( resp.data ) )
+            .catch( err => console.log( err ) )
+    }
+
     return (
-        <Flex direction={'column'} bgColor={'white'}>
+        <Flex direction={ 'column' } bgColor={ 'white' }>
             <Navbar />
             <NavBotom />
             <Container centerContent h={ '100vh' }>
                 <Flex
                     p={ 50 }
                     w="full"
-                    mt={20}
+                    mt={ 20 }
                     alignItems="center"
                     justifyContent="center"
                     direction={ 'column' }
@@ -26,23 +63,26 @@ const ReportPage = () =>
                         w={ [ '340', '530px' ] }
                         maxW="2xl"
                     >
-                        <Box p={ 6 } color={'black'}>
+                        <Box p={ 6 } color={ 'black' }>
                             <Center>
                                 <Heading>Laporkan</Heading>
                             </Center>
                             <VStack spacing={ 5 } mt={ 10 }>
                                 <FormControl>
                                     <FormLabel htmlFor='masalah'>Tulis alasan anda ingin melaporkan postingan !</FormLabel>
-                                    <Input type='text' id='masalah' outlineColor={'gray.400'}/>
+                                    <Input type='text' value={ message } onChange={ ( e ) => setMessage( e.target.value ) } id='masalah' outlineColor={ 'gray.400' } />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor='daftarmasalah'>Pilih Masalah</FormLabel>
-                                    <Select id='daftarmasalah' placeholder='Pilih Masalah' outlineColor={'gray.400'}>
-                                        <option>Mengandung SARA</option>
-                                        <option>Pencemaran Nama Baik</option>
+                                    <Select value={ reportCategory } onChange={ ( e ) => setReportCategory( e.target.value ) } id='daftarmasalah' placeholder='Pilih Masalah' outlineColor={ 'gray.400' }>
+                                        {
+                                            listReport.map( item =>
+                                                <option key={ item.reportcases_id } value={ item.reportcases_id }>{ item.case }</option>
+                                            )
+                                        }
                                     </Select>
                                 </FormControl>
-                                <Button variant={ 'solid' } colorScheme={ 'purple' } w={ 'full' }>Submit</Button>
+                                <Button variant={ 'solid' } onClick={ createReport } colorScheme={ 'purple' } w={ 'full' }>Submit</Button>
                             </VStack>
                         </Box>
                     </Box>

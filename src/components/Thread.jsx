@@ -4,7 +4,7 @@ import React from 'react'
 const Thread = ( props ) =>
 {
     return (
-        <Box border={ '1px' } p={ 1 } key={ props.key }>
+        <Box mb={ 3 } border={ '1px' } p={ 1 } key={ props.key }>
             <Text fontWeight={ 'semibold' } fontSize={ 18 }>{ props.title }</Text>
         </Box>
     )

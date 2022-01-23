@@ -7,7 +7,7 @@ import Thread from './Thread'
 const Konten = ( { kiri, kanan, data } ) =>
 {
     return (
-        <Tabs mb={ 40 } >
+        <Tabs mb={ 3 } >
             <TabList>
                 <Tab>{ kiri }</Tab>
                 <Tab>{ kanan }</Tab>

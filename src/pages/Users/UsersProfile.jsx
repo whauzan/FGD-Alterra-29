@@ -19,7 +19,6 @@ import Badges from '../../components/Badges';
 
 const UsersProfile = () =>
 {
-
     const userData = useSelector( ( state ) => state.user.users );
     const [ data, setData ] = useState( [] )
     const [ isLoading, setIsLoading ] = useState( true )
@@ -27,13 +26,10 @@ const UsersProfile = () =>
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const getUserData = async () =>
     {
-        await Axios( `/profile/${ userData.userID }`, {
-            headers: {
-                "Authorization": 'Bearer ' + userData.token
-            }
-        } ).then( ( resp ) =>
+        await Axios( `/profile/${ userData.userID }` ).then( ( resp ) =>
         {
             setData( resp.data.data )
+            console.log( data );
             setIsLoading( false )
         } )
             .catch( error => console.log( error ) )
@@ -41,14 +37,15 @@ const UsersProfile = () =>
     useEffect( () =>
     {
         getUserData()
-    }, [ getUserData ] )
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] )
+
 
 
     if ( isLoading )
     {
         return "Loading"
     }
-
     return (
         <>
             <Flex direction={ "column" } bgColor={ 'white' } color={ 'black' }>
@@ -74,16 +71,20 @@ const UsersProfile = () =>
                                 <VStack>
                                     <Flex mt={ { md: 20, lg: 8 } } direction={ "column" }>
                                         <HStack spacing={ { md: "2em", lg: "5em" } }>
-                                            <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } />
+                                            {
+                                                data.post_total === 0 &&
+                                                    data.following_total === 0 &&
+                                                    data.thread_total === 0 && data.followers_total === 0 ? <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } /> : "Data Kosong"
+                                            }
                                             <HStack>
                                                 <Box width={ { md: "20em", lg: "30em" } }>
                                                     {
-                                                        isLoading ? <Konten data={ data?.thread_on_profile } kiri={ "Post" } kanan={ "Thread" } /> : "Data Kosong"
+                                                        data.thread_on_profile === null ? "Data Kosong" : <Konten data={ data.thread_on_profile } kiri={ "Post" } kanan={ "Thread" } />
                                                     }
                                                 </Box>
                                             </HStack>
                                             <Box>
-                                                { isLoading ? <Badges badges={ data.badge_list } data={ data?.active_on_category } /> : <Text>Data kosong</Text> }
+                                                { data.active_on_category === null && data.active_on_category === null ? <Text>Data Kosong</Text> : <Badges badges={ data.badge_list } data={ data.active_on_category } /> }
                                             </Box>
                                         </HStack>
                                     </Flex>
@@ -112,9 +113,17 @@ const UsersProfile = () =>
                                             </Link>
                                         </HStack>
                                     </Center>
-                                    <Achievement post={ 3 } thread={ 5 } />
+                                    {
+                                        data.post_total === 0 &&
+                                            data.following_total === 0 &&
+                                            data.thread_total === 0 && data.followers_total === 0 ? <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } /> : "Data Kosong"
+                                    }
                                     <Center mt={ 5 }>
+                                        { data.active_on_category === null && data.active_on_category === null ? <Text>Data Badges Kosong</Text> : <Badges badges={ data.badge_list } data={ data.active_on_category } /> }
                                     </Center>
+                                    {
+                                        data.thread_on_profile === null ? <Center mt={ 10 }> Konten Kosong</Center> : <Konten data={ data.thread_on_profile } kiri={ "Post" } kanan={ "Thread" } />
+                                    }
                                 </Flex>
                             </VStack>
                         ) }

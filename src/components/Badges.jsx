@@ -16,11 +16,20 @@ const Badges = ( { badges, data } ) =>
                 }
                 <Box mt={ 10 }>
                     <Box display={ 'flex' } justifyContent={ 'space-between' }>
-                        { badges }
+                        { badges ? badges : "List Kosong" }
                     </Box>
                 </Box>
             </Box >
             <Divider mt={ 5 } mb={ 5 } orientation='horizontal' />
+            { Mobile ? (
+                <Text>{ "Aktif DI" }</Text>
+            ) :
+                (
+                    <Center>
+                        <Text>{ "Aktif DI" }</Text>
+                    </Center>
+                )
+            }
             { data.map( ( item, index ) =>
                 <AktifDi keys={ index } aktif={ item.category } /> ) }
         </VStack >

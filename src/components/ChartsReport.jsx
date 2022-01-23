@@ -1,12 +1,10 @@
 
 import React from 'react'
 import { Bar } from 'react-chartjs-2';
-
-const ChartsReport = () =>
+const ChartsReport = ( props ) =>
 {
     const reportData = {
-        labels: [ 'Kekerasan', 'Pelecehan', 'Agama',
-            'Ras dan Suku', 'Spam', 'Informasi Palsu', 'Ujaran Kebencian', 'Bunuh diri Atau Melukai diri sendiri', 'Terorisme', 'ketelanjangan' ],
+        labels: props.data,
         datasets: [
             {
                 label: 'Report',
@@ -14,7 +12,7 @@ const ChartsReport = () =>
                 borderColor: 'rgba(0,0,0,1)',
                 borderWidth: 2,
                 borderRadius: 55,
-                data: [ 65, 59, 80, 81, 56, 45, 23, 10, 15, 20 ]
+                data: props.count
             }
         ],
         options: {

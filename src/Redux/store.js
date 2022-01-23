@@ -5,16 +5,16 @@ import storage from "redux-persist/lib/storage";
 import sliceUser from "./sliceUser";
 
 const reducer = combineReducers({
-    user: sliceUser
-})
+  user: sliceUser,
+});
 
 const persistConfig = {
-    key: 'root',
-    storage
-}
+  key: "root",
+  storage,
+};
 
 const persistedReducer = persistReducer(persistConfig, reducer);
-const store = configureStore({reducer: persistedReducer});
+const store = configureStore({ reducer: persistedReducer });
 const persistor = persistStore(store);
 
 export { store, persistor };

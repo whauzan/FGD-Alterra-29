@@ -1,4 +1,4 @@
-import { Avatar, Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { Axios } from '../../helpers/axios'
@@ -8,14 +8,16 @@ const Thread = () =>
     const [ post, setPost ] = useState( [] )
     const getUsers = async () =>
     {
-        await Axios.get( '/posts' ).then( responses =>
+        await Axios.get( '/admin/threads' ).then( responses =>
         {
-            setPost( responses.data )
+            setPost( responses.data.data )
+            console.log( post );
         } ).catch( error => console.log( error ) )
     }
     useEffect( () =>
     {
         getUsers()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] )
     return (
         <>
@@ -38,9 +40,9 @@ const Thread = () =>
                             <Tbody>
                                 { post.map( ( item, index ) =>
                                     <Tr key={ index }>
-                                        <Td display={ 'flex' } alignItems={ 'center' }><Avatar src='' size={ 'sm' } mr={ 2 } />pp</Td>
-                                        <Td>{ item.title }</Td>
-                                        <Td>Mistis</Td>
+                                        <Td display={ 'flex' } alignItems={ 'center' }>{ item.name }</Td>
+                                        <Td>{ item.thread_title }</Td>
+                                        <Td>{ item.category }</Td>
                                         <Td isNumeric>
                                             <Menu isLazy>
                                                 <MenuButton>. . .</MenuButton>

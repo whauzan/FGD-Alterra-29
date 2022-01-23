@@ -5,8 +5,6 @@ const initialValue = {
   name: "",
   imageUrl: "",
   email: "",
-  token: "",
-  roles: "",
 };
 
 export const sliceUser = createSlice({

@@ -1,4 +1,4 @@
-import { Box, Button, Text, Container, Flex, FormControl, FormLabel, Image, Input, Select, VStack } from '@chakra-ui/react'
+import { Box, Button, Text, Container, Flex, FormControl, FormLabel, Input, Select, VStack, Avatar } from '@chakra-ui/react'
 import React, { useEffect } from 'react'
 import Footer from '../../components/Footer'
 import Navbar from '../../components/Navbar'
@@ -11,6 +11,7 @@ import { firebase } from '../../Firebase/firebase-config'
 import { getDownloadURL, getStorage, ref, uploadBytes } from 'firebase/storage'
 import imageCompression from 'browser-image-compression';
 import { useSelector } from 'react-redux'
+import { Axios } from '../../helpers/axios'
 
 const compressionOption = {
     maxWidthOrHeight: 1080,
@@ -58,8 +59,10 @@ const CreateThread = () =>
 {
     const [ data, setData ] = useState();
     const [ user, setUser ] = useState();
+    const [ listCategory, setListCategory ] = useState( [] );
+    const [ category, setCategory ] = useState( '' );
     const userData = useSelector( ( state ) => state.user.users );
-
+    const [ title, setTitle ] = useState( '' );
     useEffect( () =>
     {
         if ( userData )
@@ -72,6 +75,30 @@ const CreateThread = () =>
     {
         setData( editor.getData() )
     }
+
+    const AddThread = () =>
+    {
+        let dataThread = {
+            title, content: data, category_id: parseInt( category )
+        }
+        console.log( dataThread );
+        Axios.post( '/thread', dataThread ).then( ( resp ) =>
+        {
+            console.log( resp.data );
+        } ).catch( err => console.log( err ) )
+    }
+
+    const getCategory = async () =>
+    {
+        await Axios.get( 'http://54.196.139.145:8080/categories' ).then( ( resp ) => setListCategory( resp.data.data ) ).catch( err => console.log( err ) )
+    }
+
+    useEffect( () =>
+    {
+        getCategory()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] );
+
     return (
         <>
             <Flex direction={ 'column' } bgColor={ 'white' } color={ 'black' }>
@@ -89,7 +116,7 @@ const CreateThread = () =>
                             <Box display={ 'flex' } mt={ 10 }>
                                 <Link to={ `/user/id` }>
                                     <Box>
-                                        <Image w={ '47px' } src={ user?.imageUrl } borderRadius={ 'full' } />
+                                        <Avatar w={ '47px' } src={ user?.imageUrl } />
                                     </Box>
                                 </Link>
                                 <Box ml={ 4 } color={ 'black' }>
@@ -112,7 +139,7 @@ const CreateThread = () =>
                                     <VStack spacing={ 5 }>
                                         <FormControl>
                                             <FormLabel htmlFor='title'>Judul Thread</FormLabel>
-                                            <Input type='text' id='title' placeholder='Judul Thread' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                            <Input type='text' value={ title } onChange={ ( e ) => setTitle( e.target.value ) } id='title' placeholder='Judul Thread' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                                         </FormControl>
                                         <Box w={ 'full' }>
                                             <CKEditor
@@ -128,7 +155,7 @@ const CreateThread = () =>
                                                 } }
                                             />
                                         </Box>
-                                        <Button variant={ 'solid' } colorScheme={ 'purple' } w={ 'full' }>Submit</Button>
+                                        <Button onClick={ AddThread } variant={ 'solid' } colorScheme={ 'purple' } w={ 'full' }>Submit</Button>
                                     </VStack>
                                 </Box>
                             </Box>
@@ -136,14 +163,12 @@ const CreateThread = () =>
                         <Box w={ [ '350px', '200px' ] } ml={ { base: 3, md: 10, xl: 5 } } mr={ { base: 2, md: 10, xl: 3 } }>
                             <FormControl>
                                 <FormLabel htmlFor='daftarmasalah'>Kategori</FormLabel>
-                                <Select id='kategori' placeholder='Pilih Kategori' outlineColor={ 'gray.400' }>
-                                    <option>Ilmiah</option>
-                                    <option>Pendidikan</option>
-                                    <option>Mitos</option>
-                                    <option>Gosip</option>
-                                    <option>Artis</option>
-                                    <option>Musik</option>
-                                    <option>Film</option>
+                                <Select id='kategori' onChange={ ( e ) => setCategory( e.target.value ) } placeholder='Pilih Kategori' outlineColor={ 'gray.400' }>
+                                    {
+                                        listCategory.map( ( item, index ) =>
+                                            <option key={ index } value={ item.category_id }>{ item.category }</option>
+                                        )
+                                    }
                                 </Select>
                             </FormControl>
                         </Box>

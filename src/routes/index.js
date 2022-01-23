@@ -27,7 +27,7 @@ const Routers = () => {
             <Route path='/recommendation' element={<HomePage />} />
             <Route path='/hot-thread' element={<HomePage />} />
             <Route path='/user/id' element={<ProfileFriends />} />
-            <Route path='/report/id' element={<ReportPage />} />
+            <Route path='/report/:id' element={<ReportPage />} />
             <Route
               path='/create-thread'
               element={
@@ -44,7 +44,7 @@ const Routers = () => {
                 </ProtectingRoute>
               }
             />
-            <Route 
+            <Route
               path='/my-profile/setting'
               element={
                 <ProtectingRoute>
@@ -52,13 +52,62 @@ const Routers = () => {
                 </ProtectingRoute>
               }
             />
-            <Route path='/admin/overview' element={<Overview />} />
-            <Route path='/admin/users' element={<Users />} />
-            <Route path='/admin/post' element={<Post />} />
-            <Route path='/admin/thread' element={<Thread />} />
-            <Route path='/admin/report' element={<Report />} />
-            <Route path='/admin/setting' element={<SettingUsers />} />
-            <Route path='/detail-thread' element={<DetailThread />} />
+            <Route
+              path='/admin/overview'
+              element={
+                <ProtectingRoute>
+                  <Overview />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/admin/users'
+              element={
+                <ProtectingRoute>
+                  <Users />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/admin/post'
+              element={
+                <ProtectingRoute>
+                  <Post />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/admin/thread'
+              element={
+                <ProtectingRoute>
+                  <Thread />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/admin/report'
+              element={
+                <ProtectingRoute>
+                  <Report />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/admin/setting'
+              element={
+                <ProtectingRoute>
+                  <SettingUsers />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/detail-thread'
+              element={
+                <ProtectingRoute>
+                  <DetailThread />
+                </ProtectingRoute>
+              }
+            />
           </Routes>
         </Router>
       </PersistGate>

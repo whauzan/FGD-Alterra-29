@@ -1,5 +1,4 @@
-import { Avatar, Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
-
+import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { Axios } from '../../helpers/axios'
@@ -9,17 +8,27 @@ const Post = () =>
     const [ post, setPost ] = useState( [] )
     const getUsers = async () =>
     {
-        await Axios.get( '/posts' )
+        await Axios.get( '/admin/posts' )
             .then( response =>
             {
                 console.log( response );
-                setPost( response.data )
+                setPost( response.data.data )
             } )
             .catch( error => console.log( error ) )
     }
+
+    const Deletedpost = ( id ) =>
+    {
+        let data = {}
+        Axios.put( `/admin/posts/post/${ id }`, data )
+            .then( resp => console.log( resp.data ) )
+            .catch( err => console.log( err ) )
+    }
+
     useEffect( () =>
     {
         getUsers()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] )
     return (
         <>
@@ -34,36 +43,26 @@ const Post = () =>
                             <Thead>
                                 <Tr>
                                     <Th>UserName</Th>
-                                    <Th>Title</Th>
-                                    <Th>Date</Th>
+                                    <Th>Post</Th>
                                     <Th isNumeric>Action</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
                                 { post.map( ( item, index ) =>
-                                    <Tr key={ index }>
-                                        <Td ><Avatar src='' size={ 'sm' } mr={ 2 } />pp</Td>
-                                        <Td>{ item.title }</Td>
-                                        <Td>13-29</Td>
+                                    <Tr key={ index } display={ item.active === true ? '' : 'none' } >
+                                        <Td >{ item.name }</Td>
+                                        <Td>{ item.post }</Td>
                                         <Td isNumeric>
                                             <Menu isLazy>
                                                 <MenuButton>. . .</MenuButton>
                                                 <MenuList>
-                                                    <MenuItem>Chat</MenuItem>
-                                                    <MenuItem>Delete User</MenuItem>
+                                                    <MenuItem onClick={ () => Deletedpost( item.post_id ) }>Delete Comment</MenuItem>
                                                 </MenuList>
                                             </Menu>
                                         </Td>
                                     </Tr>
                                 ) }
                             </Tbody>
-                            <Tfoot>
-                                <Tr>
-                                    <Th>To convert</Th>
-                                    <Th>into</Th>
-                                    <Th isNumeric>multiply by</Th>
-                                </Tr>
-                            </Tfoot>
                         </Table>
                     </Box>
                 </Box>

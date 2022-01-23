@@ -7,10 +7,12 @@ import { Axios } from '../helpers/axios';
 import { useDispatch } from 'react-redux';
 import jwt_decode from "jwt-decode";
 import { saveInfo } from '../Redux/sliceUser';
+import { useNavigate } from 'react-router-dom';
 
 
 const ModalLogin = () =>
 {
+    const navigates = useNavigate()
     const [ show, setShow ] = React.useState( false )
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [ username, setUsername ] = useState( '' )
@@ -19,11 +21,6 @@ const ModalLogin = () =>
     const [ email, setEmail ] = useState( '' )
     const [ emailLogin, setEmailLogin ] = useState( '' )
     const dispatch = useDispatch();
-    const [ errorData, setErrorData ] = useState( {
-        username: '',
-        email: '',
-        password: ''
-    } )
 
     const Register = () =>
     {
@@ -45,22 +42,16 @@ const ModalLogin = () =>
     const Login = () =>
     {
         let data
-        if ( emailLogin.length === '' && passwordLogin === '' )
-        {
-            setErrorData( 'Username And Password Must Be Valid' )
-            console.log( errorData );
-        } else
-        {
-            data = {
-                email: emailLogin,
-                password: passwordLogin,
-            }
+        data = {
+            email: emailLogin,
+            password: passwordLogin,
         }
         Axios.post( '/login', data )
             .then( ( respons ) =>
             {
                 const dataUser = respons.data.data
                 const token = respons.data.data.token
+                localStorage.setItem( "token", dataUser.token )
                 const jwtDecode = jwt_decode( token )
                 console.log( jwtDecode );
                 const data = {
@@ -68,7 +59,13 @@ const ModalLogin = () =>
                     name: dataUser.name,
                     imageUrl: null,
                     email: dataUser.email,
-                    token: token
+                }
+                if ( jwtDecode.Admin === true )
+                {
+                    navigates( "/admin/overview" )
+                } else
+                {
+                    navigates( "/" )
                 }
                 dispatch( saveInfo( data ) )
             } )

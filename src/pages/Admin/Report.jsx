@@ -1,9 +1,35 @@
 import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import LayoutAdmin from '../../components/LayoutAdmin'
+import { Axios } from '../../helpers/axios';
 
 const Report = () =>
 {
+    const [ reportList, setReportList ] = useState( [] );
+    const userData = useSelector( ( state ) => state.user.users );
+    const getListReport = async () =>
+    {
+        await Axios.get( '/admin/thread-reports', {
+            headers: {
+                "Authorization": 'Bearer ' + userData.token
+            }
+        } ).then( ( resp ) => { setReportList( resp.data.data ) } ).catch( err => console.log( err ) )
+    }
+
+
+    useEffect( () =>
+    {
+        getListReport()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] );
+
+
+    console.log( reportList );
+
+
     return (
         <>
             <LayoutAdmin>

@@ -1,14 +1,79 @@
-import { Box, Button, Container, Flex, FormControl, FormHelperText, FormLabel, Image, Input, Stack, Text, VStack } from '@chakra-ui/react'
-import React from 'react'
+import { Avatar, Box, Button, Container, Flex, FormControl, FormHelperText, FormLabel, Image, Input, Stack, Text, VStack } from '@chakra-ui/react'
+import React, { useEffect, useState } from 'react'
 import camera from '../../assets/icons/kamera.png'
 import Footer from '../../components/Footer'
 import { useSelector } from 'react-redux';
 import Navbar from '../../components/Navbar'
 import NavBotom from '../../components/NavBotom'
-
+import { Axios } from '../../helpers/axios'
+import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
+import getStorage from 'redux-persist/es/storage/getStorage';
+import { firebase } from '../../Firebase/firebase-config';
 const SettingUser = () =>
 {
     const userData = useSelector( ( state ) => state.user.users );
+    const [ detailUser, setDetailUser ] = useState( [] );
+    const [ name, setName ] = useState( '' );
+    const [ address, setAddress ] = useState( '' );
+    const [ email, setEmail ] = useState( '' );
+    const [ bio, setBio ] = useState( '' );
+    const [ phone, setPhone ] = useState( '' );
+    const [ photo, setPhoto ] = useState( '' );
+
+    const getDetailUser = async () =>
+    {
+        await Axios.get( `/user/edit` )
+            .then( ( resp ) =>
+            {
+                setDetailUser( resp.data.data )
+            } ).catch( err => console.log( err ) )
+    }
+
+
+
+    const onChangeFile = ( e ) =>
+    {
+        if ( firebase )
+        {
+            const file = e.target.files[ 0 ];
+            console.log( file );
+            const storageRef = getStorage();
+            const fileRef = ref(
+                storageRef,
+                file.name );
+            console.log( fileRef );
+            uploadBytes( fileRef, file ).then( () =>
+            {
+                getDownloadURL( fileRef )
+                    .then( ( url ) =>
+                    {
+                        console.log( url );
+                        setPhoto( url )
+                    } )
+            } );
+        }
+    };
+
+
+    const EditUser = () =>
+    {
+        const data = {
+            name, email, address, bio, phone, photo: 'null'
+        }
+        Axios.put( `/user/edit`, data )
+            .then( ( resp ) =>
+            {
+                console.log( resp.data );
+            } ).catch( err => console.log( err ) )
+    }
+
+    useEffect( () =>
+    {
+        getDetailUser()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] );
+
+
     return (
         <>
             <Flex direction={ 'column' } bgColor={ 'white' } color={ 'black' }>
@@ -37,8 +102,8 @@ const SettingUser = () =>
                                     >
                                         <Image src={ camera } w={ 6 } />
                                     </FormLabel>
-                                    <Image src={ userData.imageUrl } borderRadius={ 'full' } w={ 20 } />
-                                    <Input type={ 'file' } display={ 'none' } />
+                                    <Avatar src={ detailUser.length === 0 ? "data poto" : detailUser.photo } zIndex={ '-3' } w={ 20 } />
+                                    <Input type={ 'file' } name='file' display={ 'none' } />
                                 </Box>
                                 <Box position={ 'absolute' } left={ '100px' } width={ [ '250px', '21em' ] }>
                                     <Text fontSize={ '18px' } fontWeight={ 'semibold' }>Ganti Profile</Text>
@@ -51,30 +116,26 @@ const SettingUser = () =>
                         <VStack mt={ '130px' } position={ 'relative' } spacing={ '5' }>
                             <FormControl id='username'>
                                 <FormLabel>Username</FormLabel>
-                                <Input type='text' placeholder='Isi Username anda' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='text' value={ name } onChange={ ( e ) => setName( e.target.value ) } placeholder={ detailUser.length === 0 ? "Isi Username" : detailUser.name } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <FormControl id='email'>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type='email' placeholder='VenomUnyuUnyu@gmail.com' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='email' value={ email } onChange={ ( e ) => setEmail( e.target.value ) } placeholder={ detailUser.length === 0 ? "Isi Email" : detailUser.email } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                                 <FormHelperText>We'll never share your email.</FormHelperText>
                             </FormControl>
                             <FormControl id='telp'>
                                 <FormLabel>No Telp</FormLabel>
-                                <Input type='tel' placeholder='Anda belum mengisi nomor telpon' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
-                            </FormControl>
-                            <FormControl id='ttl'>
-                                <FormLabel>TTL</FormLabel>
-                                <Input type='date' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='tel' value={ phone } onChange={ ( e ) => setPhone( e.target.value ) } placeholder={ detailUser.length === 0 ? "Anda Belum Mengisi Nomor telpon" : detailUser.phone } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <FormControl id='bio'>
                                 <FormLabel>Biodata</FormLabel>
-                                <Input type='text' placeholder='Biodata' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='text' value={ bio } onChange={ ( e ) => setBio( e.target.value ) } placeholder={ detailUser.length === 0 ? "Isi Bio Anda" : detailUser.bio } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <FormControl id='address'>
                                 <FormLabel>Alamat</FormLabel>
-                                <Input type='text' placeholder='Isi alamat anda' _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='text' value={ address } onChange={ ( e ) => setAddress( e.target.value ) } placeholder={ detailUser.length === 0 ? "isi alamat anda" : detailUser.address } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
-                            <Button position={ 'relative' } colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
+                            <Button position={ 'relative' } onClick={ EditUser } colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
                         </VStack >
                     </Box >
                 </Container >
