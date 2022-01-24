@@ -7,7 +7,7 @@ const AdminRoutes = (props) => {
   const isAdmin = jwt_decode(token);
 
   useEffect(() => {
-    if (!isAdmin.Admin !== true) {
+    if (!isAdmin.Admin) {
       history("/");
     }
   }, [history, isAdmin.Admin]);
