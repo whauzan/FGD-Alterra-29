@@ -9,7 +9,7 @@ const Sidebar = () =>
     return (
         <Box w={ '250px' } h={ 'full' }>
             <VStack display={ [ 'none', 'flex' ] } spacing={ '40px' } h={ '100vh' } p={ 5 }>
-                <Image src={ logo } />
+                <Link to={ '/' }><Image src={ logo } /></Link>
                 <Link to={ '/admin/overview' }>Overview</Link>
                 <Link to={ '/admin/users' }>Users</Link>
                 <Link to={ '/admin/post' }>Post</Link>
