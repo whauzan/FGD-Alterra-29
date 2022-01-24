@@ -13,6 +13,7 @@ const Detailtread = () =>
     const { id } = useParams()
     const [ inputList, setInputList ] = useState( [] );
     const [ detailThread, setdetailThread ] = useState();
+    const [ isLoading, setIsLoading ] = useState( true );
     const [ komenOpen, setKomenOpen ] = useState( false )
     const OnaddBtn = () =>
     {
@@ -21,7 +22,12 @@ const Detailtread = () =>
     const getDetail = async () =>
     {
         await Axios.get( `/thread/${ id }` )
-            .then( resp => setdetailThread( resp.data.data ) )
+            .then( resp =>
+            {
+                setdetailThread( resp.data.data )
+                setIsLoading( false )
+            }
+            )
             .catch( err => console.log( err ) )
     }
 
@@ -32,13 +38,17 @@ const Detailtread = () =>
     }, [] );
     console.log( detailThread );
 
+    if ( isLoading )
+    {
+        return "Loading"
+    }
 
 
     return (
         <Box w={ [ '350px', '700px', '800px', '900px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } color={ 'black' }>
             <Box display={ 'flex' } >
                 <Box display={ 'flex' }>
-                    <Link to={ `/user/${ 1 }` }>
+                    <Link to={ `/user/${ detailThread.user_id }` }>
                         <Box>
                             <Avatar src={ '' } />
                         </Box>
