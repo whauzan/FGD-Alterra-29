@@ -1,18 +1,16 @@
-import { Avatar, Box, Button, Container, Flex, FormControl, FormHelperText, FormLabel, Image, Input, Stack, Text, VStack } from '@chakra-ui/react'
+import { Box, Button, Container, Flex, FormControl, FormHelperText, FormLabel, Image, Input, Stack, Text, VStack } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import camera from '../../assets/icons/kamera.png'
 import Footer from '../../components/Footer'
-import { useSelector } from 'react-redux';
 import Navbar from '../../components/Navbar'
 import NavBotom from '../../components/NavBotom'
 import { Axios } from '../../helpers/axios'
-import { ref, getDownloadURL, uploadBytes } from "firebase/storage";
-import getStorage from 'redux-persist/es/storage/getStorage';
+import { ref, getDownloadURL, uploadBytes, getStorage } from "firebase/storage";
 import { firebase } from '../../Firebase/firebase-config';
+
 const SettingUser = () =>
 {
-    const userData = useSelector( ( state ) => state.user.users );
-    const [ detailUser, setDetailUser ] = useState( [] );
+    
     const [ name, setName ] = useState( '' );
     const [ address, setAddress ] = useState( '' );
     const [ email, setEmail ] = useState( '' );
@@ -22,45 +20,48 @@ const SettingUser = () =>
 
     const getDetailUser = async () =>
     {
-        await Axios.get( `/user/edit` )
+        await Axios.get( `/profile/user/edit` )
             .then( ( resp ) =>
             {
-                setDetailUser( resp.data.data )
+                setName(resp.data.data.name)
+                setAddress(resp.data.data.address)
+                setEmail(resp.data.data.email)
+                setBio(resp.data.data.bio)
+                setPhone(resp.data.data.phone)
+                setPhoto(resp.data.data.photo)
             } ).catch( err => console.log( err ) )
     }
-
-
 
     const onChangeFile = ( e ) =>
     {
         if ( firebase )
         {
             const file = e.target.files[ 0 ];
-            console.log( file );
+            // console.log( file );
             const storageRef = getStorage();
+            // console.log("ref",storageRef);
             const fileRef = ref(
                 storageRef,
                 file.name );
-            console.log( fileRef );
+            // console.log( "file ref nih",fileRef );
             uploadBytes( fileRef, file ).then( () =>
             {
                 getDownloadURL( fileRef )
                     .then( ( url ) =>
                     {
-                        console.log( url );
+                        console.log( "ini link",url );
                         setPhoto( url )
                     } )
             } );
-        }
+        };  
     };
-
 
     const EditUser = () =>
     {
         const data = {
-            name, email, address, bio, phone, photo: 'null'
+            name, email, address, bio, phone, photo
         }
-        Axios.put( `/user/edit`, data )
+        Axios.put( `profile/user/edit`, data )
             .then( ( resp ) =>
             {
                 console.log( resp.data );
@@ -72,7 +73,7 @@ const SettingUser = () =>
         getDetailUser()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] );
-
+    console.log(photo);
 
     return (
         <>
@@ -102,8 +103,8 @@ const SettingUser = () =>
                                     >
                                         <Image src={ camera } w={ 6 } />
                                     </FormLabel>
-                                    <Avatar src={ detailUser.length === 0 ? "data poto" : detailUser.photo } zIndex={ '-3' } w={ 20 } />
-                                    <Input type={ 'file' } name='file' display={ 'none' } />
+                                    <Image src={ photo } zIndex={ '-3' } w={ 20 } />
+                                    <Input type={ 'file' } name='file' display={ 'none' } onChange={onChangeFile}/>
                                 </Box>
                                 <Box position={ 'absolute' } left={ '100px' } width={ [ '250px', '21em' ] }>
                                     <Text fontSize={ '18px' } fontWeight={ 'semibold' }>Ganti Profile</Text>
@@ -116,24 +117,24 @@ const SettingUser = () =>
                         <VStack mt={ '130px' } position={ 'relative' } spacing={ '5' }>
                             <FormControl id='username'>
                                 <FormLabel>Username</FormLabel>
-                                <Input type='text' value={ name } onChange={ ( e ) => setName( e.target.value ) } placeholder={ detailUser.length === 0 ? "Isi Username" : detailUser.name } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='text' value={ name } onChange={ ( e ) => setName( e.target.value ) } placeholder={ name.length === 0 ? "Isi Username" : name } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <FormControl id='email'>
                                 <FormLabel>Email address</FormLabel>
-                                <Input type='email' value={ email } onChange={ ( e ) => setEmail( e.target.value ) } placeholder={ detailUser.length === 0 ? "Isi Email" : detailUser.email } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='email' value={ email } onChange={ ( e ) => setEmail( e.target.value ) } placeholder={ email.length === 0 ? "Isi Email" : email } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                                 <FormHelperText>We'll never share your email.</FormHelperText>
                             </FormControl>
                             <FormControl id='telp'>
                                 <FormLabel>No Telp</FormLabel>
-                                <Input type='tel' value={ phone } onChange={ ( e ) => setPhone( e.target.value ) } placeholder={ detailUser.length === 0 ? "Anda Belum Mengisi Nomor telpon" : detailUser.phone } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='tel' value={ phone } onChange={ ( e ) => setPhone( e.target.value ) } placeholder={ phone.length === 0 ? "Anda Belum Mengisi Nomor telpon" : phone } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <FormControl id='bio'>
                                 <FormLabel>Biodata</FormLabel>
-                                <Input type='text' value={ bio } onChange={ ( e ) => setBio( e.target.value ) } placeholder={ detailUser.length === 0 ? "Isi Bio Anda" : detailUser.bio } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='text' value={ bio } onChange={ ( e ) => setBio( e.target.value ) } placeholder={ bio.length === 0 ? "Isi Bio Anda" : bio } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <FormControl id='address'>
                                 <FormLabel>Alamat</FormLabel>
-                                <Input type='text' value={ address } onChange={ ( e ) => setAddress( e.target.value ) } placeholder={ detailUser.length === 0 ? "isi alamat anda" : detailUser.address } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
+                                <Input type='text' value={ address } onChange={ ( e ) => setAddress( e.target.value ) } placeholder={ address.length === 0 ? "isi alamat anda" : address } _placeholder={ { color: 'gray.400' } } outlineColor={ 'gray.400' } />
                             </FormControl>
                             <Button position={ 'relative' } onClick={ EditUser } colorScheme={ 'purple' } mb={ 20 } w={ 'full' }>Submit</Button>
                         </VStack >
