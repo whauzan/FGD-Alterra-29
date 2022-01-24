@@ -6,11 +6,29 @@ import ModalLogin from './ModalLogin'
 import Profile from './Profile'
 import { Link } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { Axios } from '../helpers/axios'
+import { useEffect } from 'react'
 
 const Navbar = () =>
 {
-  const userData = useSelector((state) => state.user.users);
+  const userData = useSelector( ( state ) => state.user.users );
   const [ menuOpen, setMenuOpen ] = useState( false )
+
+  const [ listCategory, setListCategory ] = useState( [] );
+
+  const getCategory = async () =>
+  {
+    await Axios.get( '/categories' )
+      .then( resp => setListCategory( resp.data.data ) )
+      .catch( err => console.log( err ) )
+  }
+
+  useEffect( () =>
+  {
+    getCategory()
+  }, [] );
+
+
   return (
     <Box
       p={ 1 }
@@ -30,15 +48,17 @@ const Navbar = () =>
                 <Text ml={ 3 }>Kategori</Text>
               </HStack>
               <Flex direction={ 'column' } display={ menuOpen ? 'flex' : 'none' }>
-                <MenuItem>adwd</MenuItem>
-                <MenuItem>adwd</MenuItem>
-                <MenuItem>adwd</MenuItem>
+                {
+                  listCategory.map( item =>
+                    <MenuItem><Text>{ item.category }</Text></MenuItem>
+                  )
+                }
               </Flex>
             </Flex>
           </MenuList>
         </Menu>
         <Box display={ [ 'none', 'flex' ] }>
-          <Link to={`/`}>
+          <Link to={ `/` }>
             <Image
               src={ logos }
             />
@@ -46,19 +66,20 @@ const Navbar = () =>
         </Box>
         <HStack spacing={ { base: 2, lg: 10, '2xl': '90px' } }>
           <Box display={ { base: 'none', md: 'block' } } alignItems={ 'center' }>
-            <Text _active={ { borderBottom: '1px', borderColor: 'brand.100', borderBottomWidth: '2px' } } fontWeight={ 'medium' } fontSize={ 18 } color={'black'}>Q & A’s Forums</Text>
+            <Text _active={ { borderBottom: '1px', borderColor: 'brand.100', borderBottomWidth: '2px' } } fontWeight={ 'medium' } fontSize={ 18 } color={ 'black' }>Q & A’s Forums</Text>
           </Box>
           <Box display={ [ 'none', 'flex' ] } alignItems={ 'center' }>
             <Menu>
-              <MenuButton as={ Text } fontWeight={ 'medium' } fontSize={ '18px' } color={'black'}>
+              <MenuButton as={ Text } fontWeight={ 'medium' } fontSize={ '18px' } color={ 'black' }>
                 Kategori <ChevronDownIcon />
               </MenuButton>
               <MenuList>
-                <MenuItem>Download</MenuItem>
-                <MenuItem>Create a Copy</MenuItem>
-                <MenuItem>Mark as Draft</MenuItem>
-                <MenuItem>Delete</MenuItem>
-                <MenuItem>Attend a Workshop</MenuItem>
+                {
+                  listCategory.map( item =>
+
+                    <MenuItem><Text>{ item.category }</Text></MenuItem>
+                  )
+                }
               </MenuList>
             </Menu>
           </Box>
@@ -68,10 +89,10 @@ const Navbar = () =>
                 pointerEvents="none"
                 children={ <SearchIcon color={ 'brand.200' } /> }
               />
-              <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] } placeholder="Search..." borderColor={'gray.400'} _placeholder={{ color: 'gray.400' }} color={'black'} />
+              <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] } placeholder="Search..." borderColor={ 'gray.400' } _placeholder={ { color: 'gray.400' } } color={ 'black' } />
             </InputGroup>
           </Box>
-          <Link to={`/create-thread`}>
+          <Link to={ `/create-thread` }>
             <Button
               size='sm'
               width={ 40 }
@@ -86,7 +107,7 @@ const Navbar = () =>
             </Button>
           </Link>
           <Box >
-            { userData.name ? ( <Profile imageUrl={userData.imageUrl} /> ) : ( <ModalLogin /> ) }
+            { userData.name ? ( <Profile imageUrl={ userData.imageUrl } /> ) : ( <ModalLogin /> ) }
           </Box>
         </HStack>
       </HStack>

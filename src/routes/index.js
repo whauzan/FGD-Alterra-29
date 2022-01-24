@@ -17,6 +17,7 @@ import UsersProfile from "../pages/Users/UsersProfile.jsx";
 import SettingUser from "../pages/Users/SettingUser.jsx";
 import ProtectingRoute from "./ProtectingRoute.js";
 import DetailThread from "../pages/Users/DetailThread.jsx";
+import AdminRoutes from "./AdminRoutes.js";
 const Routers = () => {
   return (
     <Provider store={store}>
@@ -26,7 +27,7 @@ const Routers = () => {
             <Route path='/' element={<HomePage />} />
             <Route path='/recommendation' element={<HomePage />} />
             <Route path='/hot-thread' element={<HomePage />} />
-            <Route path='/user/id' element={<ProfileFriends />} />
+            <Route path='/user/:id' element={<ProfileFriends />} />
             <Route path='/report/:id' element={<ReportPage />} />
             <Route
               path='/create-thread'
@@ -55,53 +56,53 @@ const Routers = () => {
             <Route
               path='/admin/overview'
               element={
-                <ProtectingRoute>
+                <AdminRoutes>
                   <Overview />
-                </ProtectingRoute>
+                </AdminRoutes>
               }
             />
             <Route
               path='/admin/users'
               element={
-                <ProtectingRoute>
+                <AdminRoutes>
                   <Users />
-                </ProtectingRoute>
+                </AdminRoutes>
               }
             />
             <Route
               path='/admin/post'
               element={
-                <ProtectingRoute>
+                <AdminRoutes>
                   <Post />
-                </ProtectingRoute>
+                </AdminRoutes>
               }
             />
             <Route
               path='/admin/thread'
               element={
-                <ProtectingRoute>
+                <AdminRoutes>
                   <Thread />
-                </ProtectingRoute>
+                </AdminRoutes>
               }
             />
             <Route
               path='/admin/report'
               element={
-                <ProtectingRoute>
+                <AdminRoutes>
                   <Report />
-                </ProtectingRoute>
+                </AdminRoutes>
               }
             />
             <Route
               path='/admin/setting'
               element={
-                <ProtectingRoute>
+                <AdminRoutes>
                   <SettingUsers />
-                </ProtectingRoute>
+                </AdminRoutes>
               }
             />
             <Route
-              path='/detail-thread'
+              path='/detail-thread/:id'
               element={
                 <ProtectingRoute>
                   <DetailThread />

@@ -45,9 +45,9 @@ const PostinganThread = ( { profile } ) =>
                         <Box mt={ 10 } key={ item.thread_id }>
                             <Box display={ 'flex' } >
                                 <Box display={ 'flex' }>
-                                    <Link to={ `/user/id` }>
+                                    <Link to={ `/user/${ item.user_id }` }>
                                         <Box>
-                                            <Avatar src={ profile } />
+                                            <Avatar src={ "" } />
                                         </Box>
                                     </Link>
                                     <Box ml={ 4 }>
@@ -71,7 +71,7 @@ const PostinganThread = ( { profile } ) =>
                             </Box>
                             <Box mt={ 5 }>
                                 <Text fontSize={ '36' } fontWeight={ 'semibold' }>
-                                    <Link to={ '/detail-thread' }>{ item.title }</Link>
+                                    <Link to={ `/detail-thread/${ item.thread_id }` }>{ item.title }</Link>
                                 </Text>
                                 <Box w={ [ '350px', '650px' ] }>
                                     { parse( item.content ) }
