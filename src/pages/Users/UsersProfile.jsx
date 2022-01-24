@@ -74,7 +74,7 @@ const UsersProfile = () =>
                                             {
                                                 data.post_total === 0 &&
                                                     data.following_total === 0 &&
-                                                    data.thread_total === 0 && data.followers_total === 0 ? <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } /> : "Data Kosong"
+                                                    data.thread_total === 0 && data.followers_total === 0 ? <Text>data kosong</Text> : <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } />
                                             }
                                             <HStack>
                                                 <Box width={ { md: "20em", lg: "30em" } }>

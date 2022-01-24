@@ -1,5 +1,5 @@
-import { Box, Center, Container, Flex, HStack, useMediaQuery, VStack } from '@chakra-ui/react';
-import React from 'react'
+import { Box, Center, Container, Flex, HStack, Text, useMediaQuery, VStack } from '@chakra-ui/react';
+import React, { useEffect } from 'react'
 import Achievement from '../../components/Achievement';
 import Badges from '../../components/Badges';
 import ButtonProfiles from '../../components/ButtonProfiles';
@@ -13,12 +13,43 @@ import Footer from '../../components/Footer';
 import Navbar from '../../components/Navbar';
 import NavBotom from '../../components/NavBotom';
 import { useSelector } from 'react-redux';
+import { Axios } from '../../helpers/axios';
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
 
 
 const ProfileFriends = () =>
 {
+    const { id } = useParams()
     const userData = useSelector( ( state ) => state.user.users );
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
+    const [ data, setData ] = useState( [] )
+    const [ isLoading, setIsLoading ] = useState( true )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    const getUserData = async () =>
+    {
+        await Axios( `/profile/${ id }` ).then( ( resp ) =>
+        {
+            setData( resp.data.data )
+            console.log( data );
+            setIsLoading( false )
+        } )
+            .catch( error => console.log( error ) )
+    }
+    useEffect( () =>
+    {
+        getUserData()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [] )
+
+
+    console.log( data );
+
+    if ( isLoading )
+    {
+        return "Loading"
+    }
+
     return (
         <Flex direction={ "column" }>
             <Navbar />
@@ -29,11 +60,11 @@ const ProfileFriends = () =>
                     { Mobile ? (
                         <Flex direction={ "column" }>
                             <HStack spacing={ { md: "3em", lg: "10em", xl: "13em" } }>
-                                <ProfilePict Profile={ Profile } Top={ 60 } />
+                                <ProfilePict Profile={ data.photo_url } Top={ 60 } />
                                 <NameUsers
-                                    username={ "Spiderman Ganteng" }
+                                    username={ data.name }
                                     tagName={ "Newbiers" }
-                                    bio={ "Kang Ngarang" }
+                                    bio={ data.bio }
                                 />
                                 <HStack display={ userData.name ? 'flex' : 'none' }>
                                     <ButtonProfiles messages={ "Follow" } />
@@ -43,13 +74,19 @@ const ProfileFriends = () =>
                             <VStack>
                                 <Flex mt={ { md: 20, lg: 8 } } direction={ "column" }>
                                     <HStack spacing={ { md: "2em", lg: "5em" } }>
-                                        <Achievement post={ 3 } thread={ 5 } />
+                                        {
+                                            data.post_total === 0 &&
+                                                data.following_total === 0 &&
+                                                data.thread_total === 0 && data.followers_total === 0 ? <Text>data kosong</Text> : <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } />
+                                        }
                                         <HStack>
                                             <Box width={ { md: "20em", lg: "30em" } }>
-                                                <Konten kiri={ "Post" } kanan={ "Thread" } />
+                                                {
+                                                    data.thread_on_profile === null ? "Data Kosong" : <Konten data={ data.thread_on_profile } kiri={ "Post" } kanan={ "Thread" } />
+                                                }
                                             </Box>
                                         </HStack>
-                                        <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
+                                        { data.active_on_category === null && data.active_on_category === null ? <Text>Data Kosong</Text> : <Badges badges={ data.badge_list } data={ data.active_on_category } /> }
                                     </HStack>
                                 </Flex>
                             </VStack>
@@ -77,10 +114,16 @@ const ProfileFriends = () =>
                                         <ButtonProfiles messages={ "Messages" } />
                                     </HStack>
                                 </Center>
-                                <Achievement post={ 3 } thread={ 5 } />
-                                <Badges iconbadges={ "Icon" } title={ "Suka cerita" } />
+                                {
+                                    data.post_total === 0 &&
+                                        data.following_total === 0 &&
+                                        data.thread_total === 0 && data.followers_total === 0 ? <Text>data kosong</Text> : <Achievement post={ data.post_total } thread={ data.thread_total } Followings={ data.following_total } follower={ data.followers_total } />
+                                }
+                                { data.active_on_category === null && data.active_on_category === null ? <Text>Data Kosong</Text> : <Badges badges={ data.badge_list } data={ data.active_on_category } /> }
                                 <Center mt={ 5 }>
-                                    <Konten kiri={ "Post" } kanan={ "Thread" } />
+                                    {
+                                        data.thread_on_profile === null ? "Data Kosong" : <Konten data={ data.thread_on_profile } kiri={ "Post" } kanan={ "Thread" } />
+                                    }
                                 </Center>
                             </Flex>
                         </VStack>
