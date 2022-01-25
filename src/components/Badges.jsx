@@ -16,7 +16,13 @@ const Badges = ( { badges, data } ) =>
                 }
                 <Box mt={ 10 }>
                     <Box display={ 'flex' } justifyContent={ 'space-between' }>
-                        { badges ? badges : "List Kosong" }
+                        { badges === null ?
+                            "Data kosong" :
+                            badges.map( ( item, index ) =>
+                                <Box key={ index }>
+                                    <Text>{ item.badges }</Text>
+                                </Box>
+                            ) }
                     </Box>
                 </Box>
             </Box >

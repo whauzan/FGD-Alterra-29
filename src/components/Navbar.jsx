@@ -49,8 +49,8 @@ const Navbar = () =>
               </HStack>
               <Flex direction={ 'column' } display={ menuOpen ? 'flex' : 'none' }>
                 {
-                  listCategory.map( item =>
-                    <MenuItem><Text>{ item.category }</Text></MenuItem>
+                  listCategory.map( ( item, index ) =>
+                    <MenuItem key={ index }><Text>{ item.category }</Text></MenuItem>
                   )
                 }
               </Flex>
@@ -75,9 +75,8 @@ const Navbar = () =>
               </MenuButton>
               <MenuList>
                 {
-                  listCategory.map( item =>
-
-                    <MenuItem><Text>{ item.category }</Text></MenuItem>
+                  listCategory.map( ( item, index ) =>
+                    <MenuItem key={ index } ><Text>{ item.category }</Text></MenuItem>
                   )
                 }
               </MenuList>

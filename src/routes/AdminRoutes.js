@@ -7,10 +7,11 @@ const AdminRoutes = (props) => {
   const isAdmin = jwt_decode(token);
 
   useEffect(() => {
-    if (!isAdmin.Admin !== true) {
+    if (!isAdmin.Admin !== true && isAdmin.exp * 1000 < Date.now()) {
+      localStorage.clear();
       history("/");
     }
-  }, [history, isAdmin.Admin]);
+  }, [history, isAdmin.Admin, isAdmin.exp]);
   return props.children;
 };
 
