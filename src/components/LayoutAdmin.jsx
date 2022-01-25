@@ -49,7 +49,7 @@ const LayoutAdmin = ( { children } ) =>
                         <Link to={ '/admin/setting' }>
                             <Box ml={ 3 } display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' }>
                                 <Text display={ [ 'none', 'flex' ] } ml={ 3 } fontSize={ '12px' } >{ dataAdmin.name }</Text>
-                                <Avatar size={ 'sm' } ml={ 5 } src={ dataAdmin.photo } />
+                                <Avatar size={ 'sm' } ml={ 5 } src={ dataAdmin.photo_url } />
                             </Box>
                         </Link>
                     </Box>
