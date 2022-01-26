@@ -1,7 +1,7 @@
 import { Button } from '@chakra-ui/react'
 import React from 'react'
 
-const ButtonProfiles = ( { messages } ) =>
+const ButtonProfiles = ( { messages, Click } ) =>
 {
     return (
         <Button
@@ -11,11 +11,12 @@ const ButtonProfiles = ( { messages } ) =>
             fontWeight={ 'medium' }
             fontSize={ 12 }
             bg={ "white" }
-            color={"brand.100"}
+            color={ "brand.100" }
             _hover={ { bg: "brand.100", color: "white" } }
             borderColor='brand.100'
             borderRadius={ "full" }
             paddingLeft={ 8 }
+            onClick={ Click }
             paddingRight={ 8 }>
             { messages }
         </Button>

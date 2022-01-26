@@ -1,14 +1,15 @@
-import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Avatar, Box, Divider, Flex, HStack, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Spacer, Text, } from '@chakra-ui/react'
-import React, { useEffect, useState } from 'react'
-import { MdRecommend } from 'react-icons/md'
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Avatar, Box, Divider, Flex, HStack, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from "@chakra-ui/react";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { Axios } from "../helpers/axios";
 import parse from "html-react-parser";
-import profile from '../assets/img/Rectangle 42.png'
-import { Axios } from '../helpers/axios'
+import { MdRecommend } from "react-icons/md";
 import { FaCommentAlt, FaShareAlt } from "react-icons/fa";
-import { Link } from 'react-router-dom'
-const PostinganThread = ( { profile } ) =>
+
+const ThreadByCategoryeys = ( { profile } ) =>
 {
+    const { category } = useParams()
     const [ inputList, setInputList ] = useState( [] );
     const [ totalLikes, settotalLikes ] = useState( true );
     const [ komenOpen, setKomenOpen ] = useState( false )
@@ -21,11 +22,10 @@ const PostinganThread = ( { profile } ) =>
     const [ listThread, setListThread ] = useState( [] );
 
 
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
     async function getRecomendation ()
     {
-        await Axios.get( '/hotthread' )
+        await Axios.get( `/threadbycategory/${ category }` )
             .then( ( resp ) =>
             {
                 setListThread( resp.data.data );
@@ -56,10 +56,9 @@ const PostinganThread = ( { profile } ) =>
 
     return (
         <>
-
             <Box w={ [ '350px', '700px' ] } mt={ 20 } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } display={ 'flex' } flexDir={ 'column' } color={ 'black' }>
                 {
-                    listThread.map( item =>
+                    !listThread ? <Text>Kategori ini kosong</Text> : listThread.map( item =>
                         <Box mt={ 10 } key={ item.thread_id }>
                             <Box display={ 'flex' } >
                                 <Box display={ 'flex' }>
@@ -124,7 +123,7 @@ const PostinganThread = ( { profile } ) =>
     )
 }
 
-export default PostinganThread
+export default ThreadByCategoryeys
 
 
 
@@ -133,7 +132,7 @@ const FormBalas = ( { children } ) =>
     return (
         <>
             <Box display={ 'flex' } mt={ 3 }>
-                <Avatar src={ profile } mb={ 5 } />
+                <Avatar src={ "" } mb={ 5 } />
                 <Box ml={ 2 }>
                     <Box flexDirection={ 'row' } display={ 'flex' }>
                         <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
@@ -154,7 +153,7 @@ const Komentar = ( { tagClick, children } ) =>
     return (
         <>
             <Box display={ 'flex' } mt={ 3 }>
-                <Avatar src={ profile } mb={ 5 } />
+                <Avatar src={ "" } mb={ 5 } />
                 <Box ml={ 2 }>
                     <Box flexDirection={ 'row' } display={ 'flex' }>
                         <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>

@@ -1,22 +1,21 @@
-import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import React from 'react'
 import { useEffect } from 'react';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { Axios } from '../../helpers/axios';
 
 const Report = () =>
 {
     const [ reportList, setReportList ] = useState( [] );
-    const userData = useSelector( ( state ) => state.user.users );
     const getListReport = async () =>
     {
-        await Axios.get( '/admin/thread-reports', {
-            headers: {
-                "Authorization": 'Bearer ' + userData.token
-            }
-        } ).then( ( resp ) => { setReportList( resp.data.data ) } ).catch( err => console.log( err ) )
+        await Axios.get( '/admin/thread-reports' ).then( ( resp ) => { setReportList( resp.data.data ) } ).catch( err => console.log( err ) )
+    }
+
+    const solveReport = ( id ) =>
+    {
+        Axios.put( `/admin/thread-reports/thread-report/${ id }`, {} ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
     }
 
 
@@ -26,8 +25,6 @@ const Report = () =>
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] );
 
-
-    console.log( reportList );
 
 
     return (
@@ -45,36 +42,30 @@ const Report = () =>
                                     <Th>Title Post</Th>
                                     <Th>Masalah</Th>
                                     <Th>Alasan</Th>
-                                    <Th>Category Thread</Th>
                                     <Th isNumeric>Action</Th>
                                 </Tr>
                             </Thead>
                             <Tbody>
-                                <Tr >
-                                    <Td>pp</Td>
-                                    <Td>Kekerasan</Td>
-                                    <Td><Text maxW={ 40 } noOfLines={ [ 1, 2, 3 ] }>
-                                        "The quick brown fox jumps over the lazy dog" is an English-language pangram—a
-                                    </Text></Td>
-                                    <Td>Mitos</Td>
-                                    <Td isNumeric>
-                                        <Menu isLazy>
-                                            <MenuButton>. . .</MenuButton>
-                                            <MenuList>
-                                                <MenuItem>Chat</MenuItem>
-                                                <MenuItem>Delete User</MenuItem>
-                                            </MenuList>
-                                        </Menu>
-                                    </Td>
-                                </Tr>
+                                {
+                                    reportList.map( item =>
+                                        <Tr key={ item.report_id } >
+                                            <Td>{ item.title_thread }</Td>
+                                            <Td>{ item.report_case }</Td>
+                                            <Td><Text maxW={ 40 } noOfLines={ [ 1, 2, 3 ] }>
+                                                { item.message }
+                                            </Text></Td>
+                                            <Td isNumeric>
+                                                <Menu isLazy>
+                                                    <MenuButton>. . .</MenuButton>
+                                                    <MenuList>
+                                                        <MenuItem onClick={ () => solveReport( item.report_id ) }>Solve Report</MenuItem>
+                                                    </MenuList>
+                                                </Menu>
+                                            </Td>
+                                        </Tr>
+                                    )
+                                }
                             </Tbody>
-                            <Tfoot>
-                                <Tr>
-                                    <Th>To convert</Th>
-                                    <Th>into</Th>
-                                    <Th isNumeric>multiply by</Th>
-                                </Tr>
-                            </Tfoot>
                         </Table>
                     </Box>
                 </Box>

@@ -1,4 +1,4 @@
-import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Tfoot, Th, Thead, Tr } from '@chakra-ui/react'
+import { Box, Menu, MenuButton, MenuItem, MenuList, Table, Tbody, Td, Text, Th, Thead, Tr } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { Axios } from '../../helpers/axios'
@@ -14,6 +14,18 @@ const Thread = () =>
             console.log( post );
         } ).catch( error => console.log( error ) )
     }
+
+    const DeleteThread = ( id ) =>
+    {
+        Axios.put( `/admin/threads/unactivate/${ id }` ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
+    }
+
+    const ActiveThread = ( id ) =>
+    {
+        Axios.put( `/admin/threads/activate/${ id }` ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
+    }
+
+
     useEffect( () =>
     {
         getUsers()
@@ -47,21 +59,14 @@ const Thread = () =>
                                             <Menu isLazy>
                                                 <MenuButton>. . .</MenuButton>
                                                 <MenuList>
-                                                    <MenuItem>Chat</MenuItem>
-                                                    <MenuItem>Delete User</MenuItem>
+                                                    <MenuItem onClick={ () => ActiveThread( item.thread_id ) }>Active Thread</MenuItem>
+                                                    <MenuItem onClick={ () => DeleteThread( item.thread_id ) }>Delete Thread</MenuItem>
                                                 </MenuList>
                                             </Menu>
                                         </Td>
                                     </Tr>
                                 ) }
                             </Tbody>
-                            <Tfoot>
-                                <Tr>
-                                    <Th>To convert</Th>
-                                    <Th>into</Th>
-                                    <Th isNumeric>multiply by</Th>
-                                </Tr>
-                            </Tfoot>
                         </Table>
                     </Box>
                 </Box>

@@ -20,7 +20,14 @@ const Post = () =>
     const Deletedpost = ( id ) =>
     {
         let data = {}
-        Axios.put( `/admin/posts/post/${ id }`, data )
+        Axios.put( `/admin/posts/unactivate/${ id }`, data )
+            .then( resp => console.log( resp.data ) )
+            .catch( err => console.log( err ) )
+    }
+
+    const ActivePost = ( id ) =>
+    {
+        Axios.put( `/admin/posts/activate/${ id }`, {} )
             .then( resp => console.log( resp.data ) )
             .catch( err => console.log( err ) )
     }
@@ -56,6 +63,7 @@ const Post = () =>
                                             <Menu isLazy>
                                                 <MenuButton>. . .</MenuButton>
                                                 <MenuList>
+                                                    <MenuItem onClick={ () => ActivePost( item.post_id ) }>Active Comment</MenuItem>
                                                     <MenuItem onClick={ () => Deletedpost( item.post_id ) }>Delete Comment</MenuItem>
                                                 </MenuList>
                                             </Menu>

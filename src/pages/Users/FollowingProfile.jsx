@@ -17,8 +17,6 @@ const FollowingProfile = () =>
 {
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     return (
-
-
         <Container centerContent h={ '100vh' } w={ 'full' }>
             <CoverImage cover={ cover } />
             <VStack>

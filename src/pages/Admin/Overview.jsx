@@ -1,5 +1,6 @@
 import { Box, Button, Center, FormControl, FormLabel, HStack, Input, Stack, Tag, TagLabel, Text } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
+import AddReputation from '../../components/AddReputation'
 import CardAdmin from '../../components/CardAdmin'
 import ChartsReport from '../../components/ChartsReport'
 import LayoutAdmin from '../../components/LayoutAdmin'
@@ -150,6 +151,7 @@ const Overview = () =>
                             </HStack>
                         </Box>
                     </Box>
+                    <AddReputation />
                 </Box>
             </LayoutAdmin>
         </>

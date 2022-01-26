@@ -18,6 +18,9 @@ import SettingUser from "../pages/Users/SettingUser.jsx";
 import ProtectingRoute from "./ProtectingRoute.js";
 import DetailThread from "../pages/Users/DetailThread.jsx";
 import AdminRoutes from "./AdminRoutes.js";
+import SaveThread from "../pages/Users/SaveThread";
+import ThreadByCategory from "../pages/Users/ThreadByCategory.jsx";
+
 const Routers = () => {
   return (
     <Provider store={store}>
@@ -25,8 +28,7 @@ const Routers = () => {
         <Router>
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/recommendation' element={<HomePage />} />
-            <Route path='/hot-thread' element={<HomePage />} />
+            <Route path='/:category' element={<ThreadByCategory />} />
             <Route path='/user/:id' element={<ProfileFriends />} />
             <Route path='/report/:id' element={<ReportPage />} />
             <Route
@@ -106,6 +108,14 @@ const Routers = () => {
               element={
                 <ProtectingRoute>
                   <DetailThread />
+                </ProtectingRoute>
+              }
+            />
+            <Route
+              path='/listthread'
+              element={
+                <ProtectingRoute>
+                  <SaveThread />
                 </ProtectingRoute>
               }
             />

@@ -66,6 +66,9 @@ const UsersProfile = () =>
                                         <Link to={ `/my-profile/setting` }>
                                             <ButtonProfiles messages={ "Edit Profile" } />
                                         </Link>
+                                        <Link to={ `/listthread` }>
+                                            <ButtonProfiles messages={ "Save Thread" } />
+                                        </Link>
                                     </HStack>
                                 </HStack>
                                 <VStack>

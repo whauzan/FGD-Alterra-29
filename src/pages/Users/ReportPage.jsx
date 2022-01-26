@@ -32,11 +32,10 @@ const ReportPage = () =>
 
     const createReport = () =>
     {
-        const data = {
-            thread_id: id,
-            report_case_id: reportCategory,
-            message
-        }
+        var data = new FormData();
+        data.append( "thread_id", id )
+        data.append( "message", message )
+        data.append( "report_case_id", reportCategory )
         console.log( data );
         Axios.post( '/report-thread', data )
             .then( resp => console.log( resp.data ) )

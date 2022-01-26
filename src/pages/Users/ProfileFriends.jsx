@@ -24,6 +24,7 @@ const ProfileFriends = () =>
     const userData = useSelector( ( state ) => state.user.users );
     const [ Mobile ] = useMediaQuery( "(min-width: 500px)" );
     const [ data, setData ] = useState( [] )
+    const [ follow, setFollow ] = useState( false );
     const [ isLoading, setIsLoading ] = useState( true )
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const getUserData = async () =>
@@ -36,14 +37,21 @@ const ProfileFriends = () =>
         } )
             .catch( error => console.log( error ) )
     }
+
+    const FollowUser = () =>
+    {
+        const data = { user_id: parseInt( id ) }
+        Axios.post( '/follows', data )
+            .then( resp => console.log( resp.data.data ) )
+            .catch( err => console.log( err ) )
+        setFollow( true )
+    }
     useEffect( () =>
     {
         getUserData()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [] )
+    }, [ setFollow ] )
 
-
-    console.log( data );
 
     if ( isLoading )
     {
@@ -67,7 +75,7 @@ const ProfileFriends = () =>
                                     bio={ data.bio }
                                 />
                                 <HStack display={ userData.name ? 'flex' : 'none' }>
-                                    <ButtonProfiles messages={ "Follow" } />
+                                    <ButtonProfiles Click={ FollowUser } messages={ follow ? "Follow" : "Following" } />
                                     <ButtonProfiles messages={ "Messages" } />
                                 </HStack>
                             </HStack>

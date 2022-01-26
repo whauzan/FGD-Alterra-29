@@ -50,7 +50,7 @@ const Navbar = () =>
               <Flex direction={ 'column' } display={ menuOpen ? 'flex' : 'none' }>
                 {
                   listCategory.map( ( item, index ) =>
-                    <MenuItem key={ index }><Text>{ item.category }</Text></MenuItem>
+                    <MenuItem key={ index }><Link to={ `/${ item.category_id }` }>{ item.category }</Link></MenuItem>
                   )
                 }
               </Flex>
@@ -76,7 +76,7 @@ const Navbar = () =>
               <MenuList>
                 {
                   listCategory.map( ( item, index ) =>
-                    <MenuItem key={ index } ><Text>{ item.category }</Text></MenuItem>
+                    <MenuItem key={ index } ><Link to={ `/${ item.category_id }` }>{ item.category }</Link></MenuItem>
                   )
                 }
               </MenuList>

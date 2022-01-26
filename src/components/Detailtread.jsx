@@ -1,13 +1,13 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Avatar, Box, Divider, HStack, Icon, Image, Input, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Divider, Flex, HStack, Icon, Input, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { FaCommentAlt, FaShareAlt } from 'react-icons/fa'
 import { MdRecommend } from 'react-icons/md'
 import { useParams } from 'react-router-dom'
 import parse from "html-react-parser";
-import profile from '../assets/img/Rectangle 42.png'
 import { Axios } from '../helpers/axios'
+import { useSelector } from 'react-redux'
 const Detailtread = () =>
 {
     const { id } = useParams()
@@ -15,6 +15,8 @@ const Detailtread = () =>
     const [ detailThread, setdetailThread ] = useState();
     const [ isLoading, setIsLoading ] = useState( true );
     const [ komenOpen, setKomenOpen ] = useState( false )
+    const userData = useSelector( ( state ) => state.user.users );
+
     const OnaddBtn = () =>
     {
         setInputList( inputList.concat( <FormBalas tagClick={ OnaddBtn } key={ inputList.length }></FormBalas> ) );
@@ -31,12 +33,20 @@ const Detailtread = () =>
             .catch( err => console.log( err ) )
     }
 
+    const getComment = async () =>
+    {
+        await Axios.get( '/commentbythread' ).then( resp => console.log( resp.data.data ) )
+    }
+
+
     useEffect( () =>
     {
         getDetail()
+        getComment()
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [] );
-    console.log( detailThread );
+
+    getComment()
 
     if ( isLoading )
     {
@@ -94,9 +104,8 @@ const Detailtread = () =>
             </Box>
             <Box>
                 <Box display={ komenOpen ? 'flex' : 'none' } flexDirection={ 'column' } mt={ 10 }>
-                    <FormBalas tagClick={ OnaddBtn }>
-                        { inputList }
-                    </FormBalas>
+                    <FormBalas names={ userData.name } id={ userData.userID } />
+                    <Komentar />
                 </Box>
                 <Divider mt={ 10 } orientation='horizontal' />
             </Box>
@@ -106,25 +115,65 @@ const Detailtread = () =>
 
 export default Detailtread
 
-const FormBalas = ( { tagClick, children } ) =>
+const FormBalas = ( { id, names } ) =>
+{
+    const [ koment, setKoment ] = useState( '' );
+
+    const AddKoment = () =>
+    {
+        let data =
+        {
+            thread_id: id,
+            reply_of: 0,
+            comment: koment
+        }
+        Axios.post( '/comment', data ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
+    }
+
+    return (
+        <>
+            <Box display={ 'flex' } mt={ 3 }>
+                <Box ml={ 2 }>
+                    <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>{ names }</Text>
+                    <Input type={ 'text' } size={ 'xs' } value={ koment } onChange={ ( e ) => setKoment( e.target.value ) } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } _placeholder={ { color: 'gray.400' } } />
+                    <Divider />
+                    <Button mt={ 5 } onClick={ AddKoment } size={ 'sm' }>Send Komen</Button>
+                </Box>
+            </Box>
+        </>
+    )
+}
+
+const Komentar = ( { komentar, names } ) =>
 {
     return (
         <>
             <Box display={ 'flex' } mt={ 3 }>
-                <Image src={ profile } borderRadius={ 'full' } w={ '50px' } mb={ 5 } />
                 <Box ml={ 2 }>
-                    <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                    <Input type={ 'text' } size={ 'xs' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' outline={ 'none' } border={ 'none' } _focus={ { border: 'none' } } _placeholder={ { color: 'gray.400' } } />
-                    <Divider />
+                    <Box flexDirection={ 'row' } display={ 'flex' }>
+                        <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>{ names }</Text>
+                        <Spacer />
+                        <Flex ml={ '26.5em' }>
+                            <Menu isLazy>
+                                <MenuButton>. . .</MenuButton>
+                                <MenuList>
+                                    {/* MenuItems are not rendered unless Menu is open */ }
+                                    <MenuItem>New Window</MenuItem>
+                                    <MenuItem>Open Closed Tab</MenuItem>
+                                    <MenuItem>Open File</MenuItem>
+                                </MenuList>
+                            </Menu>
+                        </Flex>
+                    </Box>
+                    <Text textAlign={ 'justify' } w={ '35em' }>
+                        { komentar }
+                    </Text>
                     <HStack mt={ 2 }>
-                        <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
+                        <Text fontSize={ '11px' } fontWeight={ 'normal' }>Balas</Text>
                         <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
                     </HStack>
                 </Box>
-            </Box>
-            <Box ml={ '60px' } w={ [ '300px', '540px' ] }>
-                { children }
-            </Box>
+            </Box >
         </>
     )
 }
