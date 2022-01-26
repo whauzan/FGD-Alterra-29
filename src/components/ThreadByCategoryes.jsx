@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Avatar, Box, Divider, Flex, HStack, Icon, Input, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from "@chakra-ui/react";
+import { Avatar, Box, Icon, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from "@chakra-ui/react";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Axios } from "../helpers/axios";
@@ -10,13 +10,7 @@ import { FaCommentAlt, FaShareAlt } from "react-icons/fa";
 const ThreadByCategoryeys = ( { profile } ) =>
 {
     const { category } = useParams()
-    const [ inputList, setInputList ] = useState( [] );
     const [ totalLikes, settotalLikes ] = useState( true );
-    const [ komenOpen, setKomenOpen ] = useState( false )
-    const OnaddBtn = () =>
-    {
-        setInputList( inputList.concat( <FormBalas tagClick={ OnaddBtn } key={ inputList.length }></FormBalas> ) );
-    };
 
 
     const [ listThread, setListThread ] = useState( [] );
@@ -100,20 +94,11 @@ const ThreadByCategoryeys = ( { profile } ) =>
                                         </Box>
                                         <Spacer />
                                         <Box display={ 'flex' } flexDirection={ 'row' } justifyContent={ 'center' } alignItems={ 'center' }>
-                                            <Box display={ 'flex' } onClick={ () => setKomenOpen( !komenOpen ) } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '20px' } color={ 'brand.400' } as={ FaCommentAlt } /></Box><Text ml={ 2 } mr={ 2 }>{ item.comments_total }komentar</Text>
+                                            <Box display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '20px' } color={ 'brand.400' } as={ FaCommentAlt } /></Box><Text ml={ 2 } mr={ 2 }>{ item.comments_total }komentar</Text>
                                         </Box>
                                         <Box display={ 'flex' } justifyContent={ 'center' } alignItems={ 'center' } cursor={ 'pointer' } w={ 10 } h={ 10 } bg={ 'brand.200' } borderRadius={ 'full' }><Icon fontSize={ '25px' } color={ 'brand.400' } as={ FaShareAlt } /></Box>
                                     </Box>
                                 </Box>
-                            </Box>
-                            <Box>
-                                <Box display={ komenOpen ? 'flex' : 'none' } flexDirection={ 'column' } mt={ 10 }>
-                                    <FormBalas />
-                                    <Komentar tagClick={ OnaddBtn }>
-                                        { inputList }
-                                    </Komentar>
-                                </Box>
-                                <Divider mt={ 10 } orientation='horizontal' />
                             </Box>
                         </Box>
                     )
@@ -127,60 +112,3 @@ export default ThreadByCategoryeys
 
 
 
-const FormBalas = ( { children } ) =>
-{
-    return (
-        <>
-            <Box display={ 'flex' } mt={ 3 }>
-                <Avatar src={ "" } mb={ 5 } />
-                <Box ml={ 2 }>
-                    <Box flexDirection={ 'row' } display={ 'flex' }>
-                        <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                    </Box>
-                    <Input type={ 'text' } variant={ 'flushed' } size={ 'sm' } w={ [ '300px', '540px' ] } placeholder='Tulis Komentar' _placeholder={ { color: 'gray.400' } } />
-                    <Divider />
-                </Box>
-            </Box >
-            <Box ml={ '60px' } w={ [ '300px', '540px' ] }>
-                { children }
-            </Box>
-        </>
-    )
-}
-
-const Komentar = ( { tagClick, children } ) =>
-{
-    return (
-        <>
-            <Box display={ 'flex' } mt={ 3 }>
-                <Avatar src={ "" } mb={ 5 } />
-                <Box ml={ 2 }>
-                    <Box flexDirection={ 'row' } display={ 'flex' }>
-                        <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>Venom Unyu</Text>
-                        <Spacer />
-                        <Flex ml={ '26.5em' }>
-                            <Menu isLazy>
-                                <MenuButton>. . .</MenuButton>
-                                <MenuList>
-                                    {/* MenuItems are not rendered unless Menu is open */ }
-                                    <MenuItem>New Window</MenuItem>
-                                    <MenuItem>Open Closed Tab</MenuItem>
-                                    <MenuItem>Open File</MenuItem>
-                                </MenuList>
-                            </Menu>
-                        </Flex>
-                    </Box>
-                    <Text textAlign={ 'justify' } w={ '35em' }>
-                    </Text>
-                    <HStack mt={ 2 }>
-                        <Text fontSize={ '11px' } onClick={ tagClick } fontWeight={ 'normal' }>Balas</Text>
-                        <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
-                    </HStack>
-                </Box>
-            </Box >
-            <Box ml={ '60px' } w={ [ '300px', '540px' ] }>
-                { children }
-            </Box>
-        </>
-    )
-}

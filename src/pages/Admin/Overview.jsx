@@ -5,7 +5,7 @@ import CardAdmin from '../../components/CardAdmin'
 import ChartsReport from '../../components/ChartsReport'
 import LayoutAdmin from '../../components/LayoutAdmin'
 import { Axios } from '../../helpers/axios'
-
+import AddBadge from '../../components/AddBadge'
 const Overview = () =>
 {
     const [ dashboard, setDashboard ] = useState( [] );
@@ -152,6 +152,7 @@ const Overview = () =>
                         </Box>
                     </Box>
                     <AddReputation />
+                    <AddBadge />
                 </Box>
             </LayoutAdmin>
         </>

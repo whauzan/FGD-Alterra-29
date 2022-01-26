@@ -18,7 +18,7 @@ const AddReputation = () =>
         }
 
         console.log( data );
-        // Axios.post( '/admin/reputation', formdata ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
+        Axios.post( '/admin/reputation', formdata ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
     }
 
     return (

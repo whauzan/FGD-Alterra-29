@@ -1,5 +1,5 @@
 import { ChevronDownIcon } from '@chakra-ui/icons'
-import { Avatar, Box, Button, Divider, Flex, HStack, Icon, Input, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from '@chakra-ui/react'
+import { Avatar, Box, Button, Divider, Flex, Icon, Input, Link, Menu, MenuButton, MenuItem, MenuList, Spacer, Text } from '@chakra-ui/react'
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { FaCommentAlt, FaShareAlt } from 'react-icons/fa'
@@ -11,16 +11,12 @@ import { useSelector } from 'react-redux'
 const Detailtread = () =>
 {
     const { id } = useParams()
-    const [ inputList, setInputList ] = useState( [] );
     const [ detailThread, setdetailThread ] = useState();
     const [ isLoading, setIsLoading ] = useState( true );
     const [ komenOpen, setKomenOpen ] = useState( false )
+    const [ listComment, setlistComment ] = useState( [] );
     const userData = useSelector( ( state ) => state.user.users );
 
-    const OnaddBtn = () =>
-    {
-        setInputList( inputList.concat( <FormBalas tagClick={ OnaddBtn } key={ inputList.length }></FormBalas> ) );
-    };
     const getDetail = async () =>
     {
         await Axios.get( `/thread/${ id }` )
@@ -35,7 +31,7 @@ const Detailtread = () =>
 
     const getComment = async () =>
     {
-        await Axios.get( '/commentbythread' ).then( resp => console.log( resp.data.data ) )
+        await Axios.get( `/commentbythread/${ id }` ).then( resp => setlistComment( resp.data.data ) ).catch( err => console.log( err ) )
     }
 
 
@@ -44,7 +40,7 @@ const Detailtread = () =>
         getDetail()
         getComment()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [] );
+    }, [ getComment ] );
 
     getComment()
 
@@ -55,10 +51,10 @@ const Detailtread = () =>
 
 
     return (
-        <Box w={ [ '350px', '700px', '800px', '900px' ] } mt={ [ 10, 20 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } color={ 'black' }>
+        <Box w={ [ '350px', '700px', '800px', '900px' ] } mt={ [ 20, 40 ] } ml={ { base: 3, md: 10, xl: 3 } } mr={ { base: 2, md: 10, xl: 3 } } color={ 'black' }>
             <Box display={ 'flex' } >
                 <Box display={ 'flex' }>
-                    <Link to={ `/user/${ detailThread.user_id }` }>
+                    <Link to={ `/ user / ${ detailThread.user_id } ` }>
                         <Box>
                             <Avatar src={ '' } />
                         </Box>
@@ -75,7 +71,7 @@ const Detailtread = () =>
                         </MenuButton>
                         <MenuList>
                             <MenuItem>Simpan</MenuItem>
-                            <Link to={ `/report/${ id }` }>
+                            <Link to={ `/ report / ${ id } ` }>
                                 <MenuItem>Laporkan</MenuItem>
                             </Link>
                         </MenuList>
@@ -104,8 +100,14 @@ const Detailtread = () =>
             </Box>
             <Box>
                 <Box display={ komenOpen ? 'flex' : 'none' } flexDirection={ 'column' } mt={ 10 }>
-                    <FormBalas names={ userData.name } id={ userData.userID } />
-                    <Komentar />
+                    <FormBalas names={ userData.name } id={ id } />
+                    {
+                        listComment.map( item =>
+                            <Box key={ item.comment_id }>
+                                < Komentar names={ item.name } links={ item.photo_url } link komentar={ item.comment } />
+                            </Box>
+                        )
+                    }
                 </Box>
                 <Divider mt={ 10 } orientation='horizontal' />
             </Box>
@@ -121,13 +123,11 @@ const FormBalas = ( { id, names } ) =>
 
     const AddKoment = () =>
     {
-        let data =
-        {
-            thread_id: id,
-            reply_of: 0,
-            comment: koment
-        }
-        Axios.post( '/comment', data ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
+        let formdata = new FormData()
+        formdata.append( "thread_id", id )
+        formdata.append( "reply_of", 0 )
+        formdata.append( "comment", koment )
+        Axios.post( '/comment', formdata ).then( resp => console.log( resp.data ) ).catch( err => console.log( err ) )
     }
 
     return (
@@ -144,13 +144,14 @@ const FormBalas = ( { id, names } ) =>
     )
 }
 
-const Komentar = ( { komentar, names } ) =>
+const Komentar = ( { komentar, names, links } ) =>
 {
     return (
         <>
             <Box display={ 'flex' } mt={ 3 }>
                 <Box ml={ 2 }>
-                    <Box flexDirection={ 'row' } display={ 'flex' }>
+                    <Box flexDirection={ 'row' } display={ 'flex' } alignItems={ 'center' }>
+                        <Avatar src={ links } />
                         <Text fontWeight={ 'semibold' } id='asw' fontSize={ '14' }>{ names }</Text>
                         <Spacer />
                         <Flex ml={ '26.5em' }>
@@ -159,8 +160,6 @@ const Komentar = ( { komentar, names } ) =>
                                 <MenuList>
                                     {/* MenuItems are not rendered unless Menu is open */ }
                                     <MenuItem>New Window</MenuItem>
-                                    <MenuItem>Open Closed Tab</MenuItem>
-                                    <MenuItem>Open File</MenuItem>
                                 </MenuList>
                             </Menu>
                         </Flex>
@@ -168,10 +167,6 @@ const Komentar = ( { komentar, names } ) =>
                     <Text textAlign={ 'justify' } w={ '35em' }>
                         { komentar }
                     </Text>
-                    <HStack mt={ 2 }>
-                        <Text fontSize={ '11px' } fontWeight={ 'normal' }>Balas</Text>
-                        <Text fontSize={ '11px' } fontWeight={ 'normal' }>Suka</Text>
-                    </HStack>
                 </Box>
             </Box >
         </>
