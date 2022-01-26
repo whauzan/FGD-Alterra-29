@@ -15,6 +15,9 @@ const Navbar = () =>
   const [ menuOpen, setMenuOpen ] = useState( false )
 
   const [ listCategory, setListCategory ] = useState( [] );
+  const [ search, setSearch ] = useState( "" );
+  const [ suggestion, setSuggestion ] = useState( [] );
+
 
   const getCategory = async () =>
   {
@@ -23,12 +26,30 @@ const Navbar = () =>
       .catch( err => console.log( err ) )
   }
 
+  const getSearch = async () => {
+    await Axios.get( '/search', {
+      params: {
+        threadname: search
+      }
+    } )
+    .then(response => {
+      setSuggestion( response.data.data )
+    })
+  }
+
+  const onSearch = (e) => {
+    setSearch(e.target.value)
+  }
+
   useEffect( () =>
   {
     getCategory()
-  }, [] );
+    if (search.length > 0) {
+      getSearch()
+    }
+  }, [search] );
 
-
+  console.log(suggestion);
   return (
     <Box
       p={ 1 }
@@ -88,8 +109,26 @@ const Navbar = () =>
                 pointerEvents="none"
                 children={ <SearchIcon color={ 'brand.200' } /> }
               />
-              <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] } placeholder="Search..." borderColor={ 'gray.400' } _placeholder={ { color: 'gray.400' } } color={ 'black' } />
+              <Input type="text" borderRadius={ 'full' } w={ [ '250px', '300px', '500px' ] }
+                placeholder="Search..."
+                borderColor={ 'gray.400' }
+                _placeholder={ { color: 'gray.400' } }
+                color={ 'black' }
+                onChange={onSearch}
+                onBlur={() => {
+                  setTimeout(() => {
+                    setSuggestion([])
+                  }, 100)
+                }}
+              />
             </InputGroup>
+            <Box position={'absolute'} top={14} backgroundColor={'gray.50'} w={[ '250px', '300px', '500px' ]} borderRadius={'md'}>
+              {suggestion && suggestion.map((item, key) => (
+                <Link to={ `/detail-thread/${ item.thread_id }` }>
+                  <Box borderRadius={'full'} pl={10} py={1} key={key} _hover={{backgroundColor: "gray.100"}}>{item.title}</Box>
+                </Link>
+              ))}
+            </Box>
           </Box>
           <Link to={ `/create-thread` }>
             <Button
