@@ -43,7 +43,7 @@ const PostinganThread = ( { profile } ) =>
     useEffect( () =>
     {
         getRecomendation()
-    }, [ getRecomendation, totalLikes ] );
+    }, [ totalLikes ] );
 
 
     return (
